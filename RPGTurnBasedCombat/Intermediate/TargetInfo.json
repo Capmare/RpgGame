@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "RPGTurnBasedCombat",
+			"Path": "..\\Source\\RPGTurnBasedCombat.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "RPGTurnBasedCombatEditor",
+			"Path": "..\\Source\\RPGTurnBasedCombatEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}

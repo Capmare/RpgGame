@@ -42,3 +42,4 @@ C:\Users\capma\Documents\GitHub\RpgGame\RPGTurnBasedCombat\Intermediate\Build\Bu
 C:\Users\capma\Documents\GitHub\RpgGame\RPGTurnBasedCombat\Intermediate\Build\BuildRulesProjects\RPGTurnBasedCombatModuleRules\obj\Development\RPGTurnBasedCombatModuleRules.dll
 C:\Users\capma\Documents\GitHub\RpgGame\RPGTurnBasedCombat\Intermediate\Build\BuildRulesProjects\RPGTurnBasedCombatModuleRules\obj\Development\refint\RPGTurnBasedCombatModuleRules.dll
 C:\Users\capma\Documents\GitHub\RpgGame\RPGTurnBasedCombat\Intermediate\Build\BuildRulesProjects\RPGTurnBasedCombatModuleRules\obj\Development\RPGTurnBasedCombatModuleRules.pdb
+C:\Users\capma\Documents\GitHub\RpgGame\RPGTurnBasedCombat\Intermediate\Build\BuildRulesProjects\RPGTurnBasedCombatModuleRules\obj\Development\RPGTurnBasedCombatModuleRules.sourcelink.json

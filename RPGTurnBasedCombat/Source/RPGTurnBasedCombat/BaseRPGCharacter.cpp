@@ -40,21 +40,24 @@ AWeapon::AWeapon()
 
 }
 
-/void ABaseRPGCharacter::DealDamage_Implementation(FDealingDamage ReceivedDamage)
-/{
-/	for (const auto& DamageContainer : Statuses.DamageTypes)
-/	{
-/		for (const EDamageTypes& DamageType : DamageContainer)
-/		{
-/			if (DamageType == ReceivedDamage.DamageType)
-/			{
-/				UE_LOG(LogTemp, Warning, TEXT("Dealing damage of type: %s"), *UEnum::GetValueAsString(DamageType));
-/			}
-/		}
-/		
-/	}
-/
-/}
+void ABaseRPGCharacter::DealDamage(FDealingDamage ReceivedDamage)
+{
+	for (const auto& DamageContainer : Statuses.DamageTypes)
+	{
+		for (const EDamageTypes& DamageType : DamageContainer)
+		{
+			if (DamageType == ReceivedDamage.DamageType)
+			{
+				UE_LOG(LogTemp, Warning, TEXT("Dealing damage of type: %s"), *UEnum::GetValueAsString(DamageType));
+			}
+		}
+		
+	}
+
+	UE_LOG(LogTemp, Warning, TEXT("Damage ammount: %f"), ReceivedDamage.DamageAmmount);
+
+
+}
 
 void AWeapon::BeginPlay()
 {

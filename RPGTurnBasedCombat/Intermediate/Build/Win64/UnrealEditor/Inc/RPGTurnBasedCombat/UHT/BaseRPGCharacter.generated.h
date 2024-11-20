@@ -9,33 +9,17 @@
 #include "UObject/ScriptMacros.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
+struct FDealingDamage;
 #ifdef RPGTURNBASEDCOMBAT_BaseRPGCharacter_generated_h
 #error "BaseRPGCharacter.generated.h already included, missing '#pragma once' in BaseRPGCharacter.h"
 #endif
 #define RPGTURNBASEDCOMBAT_BaseRPGCharacter_generated_h
 
-#define FID_Users_capma_Documents_GitHub_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_BaseRPGCharacter_h_12_GENERATED_BODY \
-	friend struct Z_Construct_UScriptStruct_FMagicStatus_Statics; \
-	RPGTURNBASEDCOMBAT_API static class UScriptStruct* StaticStruct();
+#define FID_Users_capma_Documents_GitHub_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_BaseRPGCharacter_h_16_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execDealDamage);
 
 
-template<> RPGTURNBASEDCOMBAT_API UScriptStruct* StaticStruct<struct FMagicStatus>();
-
-#define FID_Users_capma_Documents_GitHub_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_BaseRPGCharacter_h_33_GENERATED_BODY \
-	friend struct Z_Construct_UScriptStruct_FPlayerStatuses_Statics; \
-	RPGTURNBASEDCOMBAT_API static class UScriptStruct* StaticStruct();
-
-
-template<> RPGTURNBASEDCOMBAT_API UScriptStruct* StaticStruct<struct FPlayerStatuses>();
-
-#define FID_Users_capma_Documents_GitHub_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_BaseRPGCharacter_h_62_GENERATED_BODY \
-	friend struct Z_Construct_UScriptStruct_FDealingDamage_Statics; \
-	RPGTURNBASEDCOMBAT_API static class UScriptStruct* StaticStruct();
-
-
-template<> RPGTURNBASEDCOMBAT_API UScriptStruct* StaticStruct<struct FDealingDamage>();
-
-#define FID_Users_capma_Documents_GitHub_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_BaseRPGCharacter_h_72_INCLASS_NO_PURE_DECLS \
+#define FID_Users_capma_Documents_GitHub_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_BaseRPGCharacter_h_16_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesABaseRPGCharacter(); \
 	friend struct Z_Construct_UClass_ABaseRPGCharacter_Statics; \
@@ -45,7 +29,7 @@ public: \
 	virtual UObject* _getUObject() const override { return const_cast<ABaseRPGCharacter*>(this); }
 
 
-#define FID_Users_capma_Documents_GitHub_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_BaseRPGCharacter_h_72_ENHANCED_CONSTRUCTORS \
+#define FID_Users_capma_Documents_GitHub_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_BaseRPGCharacter_h_16_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	ABaseRPGCharacter(ABaseRPGCharacter&&); \
@@ -57,19 +41,20 @@ public: \
 	NO_API virtual ~ABaseRPGCharacter();
 
 
-#define FID_Users_capma_Documents_GitHub_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_BaseRPGCharacter_h_69_PROLOG
-#define FID_Users_capma_Documents_GitHub_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_BaseRPGCharacter_h_72_GENERATED_BODY \
+#define FID_Users_capma_Documents_GitHub_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_BaseRPGCharacter_h_13_PROLOG
+#define FID_Users_capma_Documents_GitHub_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_BaseRPGCharacter_h_16_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_capma_Documents_GitHub_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_BaseRPGCharacter_h_72_INCLASS_NO_PURE_DECLS \
-	FID_Users_capma_Documents_GitHub_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_BaseRPGCharacter_h_72_ENHANCED_CONSTRUCTORS \
+	FID_Users_capma_Documents_GitHub_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_BaseRPGCharacter_h_16_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_Users_capma_Documents_GitHub_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_BaseRPGCharacter_h_16_INCLASS_NO_PURE_DECLS \
+	FID_Users_capma_Documents_GitHub_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_BaseRPGCharacter_h_16_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
 template<> RPGTURNBASEDCOMBAT_API UClass* StaticClass<class ABaseRPGCharacter>();
 
-#define FID_Users_capma_Documents_GitHub_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_BaseRPGCharacter_h_104_INCLASS_NO_PURE_DECLS \
+#define FID_Users_capma_Documents_GitHub_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_BaseRPGCharacter_h_47_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesAWeapon(); \
 	friend struct Z_Construct_UClass_AWeapon_Statics; \
@@ -78,7 +63,7 @@ public: \
 	DECLARE_SERIALIZER(AWeapon)
 
 
-#define FID_Users_capma_Documents_GitHub_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_BaseRPGCharacter_h_104_ENHANCED_CONSTRUCTORS \
+#define FID_Users_capma_Documents_GitHub_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_BaseRPGCharacter_h_47_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	AWeapon(AWeapon&&); \
@@ -90,12 +75,12 @@ public: \
 	NO_API virtual ~AWeapon();
 
 
-#define FID_Users_capma_Documents_GitHub_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_BaseRPGCharacter_h_101_PROLOG
-#define FID_Users_capma_Documents_GitHub_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_BaseRPGCharacter_h_104_GENERATED_BODY \
+#define FID_Users_capma_Documents_GitHub_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_BaseRPGCharacter_h_44_PROLOG
+#define FID_Users_capma_Documents_GitHub_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_BaseRPGCharacter_h_47_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_capma_Documents_GitHub_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_BaseRPGCharacter_h_104_INCLASS_NO_PURE_DECLS \
-	FID_Users_capma_Documents_GitHub_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_BaseRPGCharacter_h_104_ENHANCED_CONSTRUCTORS \
+	FID_Users_capma_Documents_GitHub_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_BaseRPGCharacter_h_47_INCLASS_NO_PURE_DECLS \
+	FID_Users_capma_Documents_GitHub_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_BaseRPGCharacter_h_47_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -106,10 +91,4 @@ template<> RPGTURNBASEDCOMBAT_API UClass* StaticClass<class AWeapon>();
 #define CURRENT_FILE_ID FID_Users_capma_Documents_GitHub_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_BaseRPGCharacter_h
 
 
-#define FOREACH_ENUM_EDAMAGETYPES(op) \
-	op(FIRE) \
-	op(ELECTRICITY) \
-	op(WIND) \
-	op(MYSTIC) \
-	op(BLOOD) 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

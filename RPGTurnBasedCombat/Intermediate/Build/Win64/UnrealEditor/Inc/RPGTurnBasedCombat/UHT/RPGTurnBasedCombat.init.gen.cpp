@@ -17,13 +17,13 @@ void EmptyLinkFunctionForGeneratedCodeRPGTurnBasedCombat_init() {}
 				nullptr,
 				0,
 				PKG_CompiledIn | 0x00000000,
-				0x139FF6D7,
-				0xF2B21633,
+				0x66B7E35A,
+				0x1F38419F,
 				METADATA_PARAMS(0, nullptr)
 			};
 			UECodeGen_Private::ConstructUPackage(Z_Registration_Info_UPackage__Script_RPGTurnBasedCombat.OuterSingleton, PackageParams);
 		}
 		return Z_Registration_Info_UPackage__Script_RPGTurnBasedCombat.OuterSingleton;
 	}
-	static FRegisterCompiledInInfo Z_CompiledInDeferPackage_UPackage__Script_RPGTurnBasedCombat(Z_Construct_UPackage__Script_RPGTurnBasedCombat, TEXT("/Script/RPGTurnBasedCombat"), Z_Registration_Info_UPackage__Script_RPGTurnBasedCombat, CONSTRUCT_RELOAD_VERSION_INFO(FPackageReloadVersionInfo, 0x139FF6D7, 0xF2B21633));
+	static FRegisterCompiledInInfo Z_CompiledInDeferPackage_UPackage__Script_RPGTurnBasedCombat(Z_Construct_UPackage__Script_RPGTurnBasedCombat, TEXT("/Script/RPGTurnBasedCombat"), Z_Registration_Info_UPackage__Script_RPGTurnBasedCombat, CONSTRUCT_RELOAD_VERSION_INFO(FPackageReloadVersionInfo, 0x66B7E35A, 0x1F38419F));
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

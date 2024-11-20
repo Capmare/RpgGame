@@ -9,6 +9,7 @@ ABaseRPGCharacter::ABaseRPGCharacter()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 
+	//Weapon = CreateDefaultSubobject<AWeapon>(TEXT("Weapon"));
 
 }
 
@@ -38,6 +39,22 @@ AWeapon::AWeapon()
 	WeaponMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Weapon"));
 
 }
+
+/void ABaseRPGCharacter::DealDamage_Implementation(FDealingDamage ReceivedDamage)
+/{
+/	for (const auto& DamageContainer : Statuses.DamageTypes)
+/	{
+/		for (const EDamageTypes& DamageType : DamageContainer)
+/		{
+/			if (DamageType == ReceivedDamage.DamageType)
+/			{
+/				UE_LOG(LogTemp, Warning, TEXT("Dealing damage of type: %s"), *UEnum::GetValueAsString(DamageType));
+/			}
+/		}
+/		
+/	}
+/
+/}
 
 void AWeapon::BeginPlay()
 {

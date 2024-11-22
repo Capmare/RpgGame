@@ -2,6 +2,7 @@
 
 
 #include "BaseRPGCharacter.h"
+#include "Kismet/KismetMathLibrary.h"
 
 // Sets default values
 ABaseRPGCharacter::ABaseRPGCharacter()
@@ -17,8 +18,10 @@ ABaseRPGCharacter::ABaseRPGCharacter()
 void ABaseRPGCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 }
+
+
 
 // Called every frame
 void ABaseRPGCharacter::Tick(float DeltaTime)
@@ -34,6 +37,11 @@ void ABaseRPGCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 
 }
 
+EDamageTypes ABaseRPGCharacter::GetRandomTypeOfDamage()
+{
+	return (EDamageTypes)UKismetMathLibrary::RandomInteger(5);
+}
+
 AWeapon::AWeapon()
 {
 	WeaponMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Weapon"));
@@ -42,16 +50,21 @@ AWeapon::AWeapon()
 
 void ABaseRPGCharacter::DealDamage(FDealingDamage ReceivedDamage)
 {
-	for (const auto& DamageContainer : Statuses.DamageTypes)
+	switch (ReceivedDamage.DamageType)
 	{
-		for (const EDamageTypes& DamageType : DamageContainer)
-		{
-			if (DamageType == ReceivedDamage.DamageType)
-			{
-				UE_LOG(LogTemp, Warning, TEXT("Dealing damage of type: %s"), *UEnum::GetValueAsString(DamageType));
-			}
-		}
+	case FIRE:
 		
+		break;
+	case ELECTRICITY:
+		break;
+	case WIND:
+	case MYSTIC:
+		break;
+	case BLOOD:
+		break;
+
+	default:
+		break;
 	}
 
 	UE_LOG(LogTemp, Warning, TEXT("Damage ammount: %f"), ReceivedDamage.DamageAmmount);

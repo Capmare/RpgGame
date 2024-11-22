@@ -1,13 +1,13 @@
 {
     "Version": "1.2",
     "Data": {
-        "Source": "c:\\users\\capma\\documents\\github\\rpggame\\rpgturnbasedcombat\\source\\rpgturnbasedcombat\\combat.cpp",
+        "Source": "f:\\unreal projects\\rpggame\\rpgturnbasedcombat\\source\\rpgturnbasedcombat\\combat.cpp",
         "ProvidedModule": "",
-        "PCH": "c:\\users\\capma\\documents\\github\\rpggame\\rpgturnbasedcombat\\intermediate\\build\\win64\\x64\\rpgturnbasedcombateditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.inclorderoldest.h.pch",
+        "PCH": "f:\\unreal projects\\rpggame\\rpgturnbasedcombat\\intermediate\\build\\win64\\x64\\rpgturnbasedcombateditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.inclorderoldest.h.pch",
         "Includes": [
-            "c:\\users\\capma\\documents\\github\\rpggame\\rpgturnbasedcombat\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\rpgturnbasedcombat\\definitions.rpgturnbasedcombat.h",
-            "c:\\users\\capma\\documents\\github\\rpggame\\rpgturnbasedcombat\\source\\rpgturnbasedcombat\\combat.h",
-            "c:\\users\\capma\\documents\\github\\rpggame\\rpgturnbasedcombat\\intermediate\\build\\win64\\unrealeditor\\inc\\rpgturnbasedcombat\\uht\\combat.generated.h"
+            "f:\\unreal projects\\rpggame\\rpgturnbasedcombat\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\rpgturnbasedcombat\\definitions.rpgturnbasedcombat.h",
+            "f:\\unreal projects\\rpggame\\rpgturnbasedcombat\\source\\rpgturnbasedcombat\\combat.h",
+            "f:\\unreal projects\\rpggame\\rpgturnbasedcombat\\intermediate\\build\\win64\\unrealeditor\\inc\\rpgturnbasedcombat\\uht\\combat.generated.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

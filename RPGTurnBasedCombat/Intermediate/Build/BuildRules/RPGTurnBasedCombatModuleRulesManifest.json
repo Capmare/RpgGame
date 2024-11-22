@@ -1,8 +1,8 @@
 {
 	"SourceFiles": [
-		"C:\\Users\\capma\\Documents\\GitHub\\RpgGame\\RPGTurnBasedCombat\\Source\\RPGTurnBasedCombat\\RPGTurnBasedCombat.Build.cs",
-		"C:\\Users\\capma\\Documents\\GitHub\\RpgGame\\RPGTurnBasedCombat\\Source\\RPGTurnBasedCombat.Target.cs",
-		"C:\\Users\\capma\\Documents\\GitHub\\RpgGame\\RPGTurnBasedCombat\\Source\\RPGTurnBasedCombatEditor.Target.cs"
+		"F:\\Unreal Projects\\RpgGame\\RPGTurnBasedCombat\\Source\\RPGTurnBasedCombat\\RPGTurnBasedCombat.Build.cs",
+		"F:\\Unreal Projects\\RpgGame\\RPGTurnBasedCombat\\Source\\RPGTurnBasedCombat.Target.cs",
+		"F:\\Unreal Projects\\RpgGame\\RPGTurnBasedCombat\\Source\\RPGTurnBasedCombatEditor.Target.cs"
 	],
 	"EngineVersion": "5.4.4"
 }

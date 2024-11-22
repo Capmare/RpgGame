@@ -67,12 +67,97 @@ DEFINE_FUNCTION(ABaseRPGCharacter::execDealDamage)
 }
 // End Class ABaseRPGCharacter Function DealDamage
 
+// Begin Class ABaseRPGCharacter Function GetStatuses
+struct Z_Construct_UFunction_ABaseRPGCharacter_GetStatuses_Statics
+{
+	struct BaseRPGCharacter_eventGetStatuses_Parms
+	{
+		FPlayerStatuses ReturnValue;
+	};
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "BaseRPGCharacter.h" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FStructPropertyParams NewProp_ReturnValue;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_ABaseRPGCharacter_GetStatuses_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(BaseRPGCharacter_eventGetStatuses_Parms, ReturnValue), Z_Construct_UScriptStruct_FPlayerStatuses, METADATA_PARAMS(0, nullptr) }; // 839395657
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ABaseRPGCharacter_GetStatuses_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ABaseRPGCharacter_GetStatuses_Statics::NewProp_ReturnValue,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_ABaseRPGCharacter_GetStatuses_Statics::PropPointers) < 2048);
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ABaseRPGCharacter_GetStatuses_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ABaseRPGCharacter, nullptr, "GetStatuses", nullptr, nullptr, Z_Construct_UFunction_ABaseRPGCharacter_GetStatuses_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ABaseRPGCharacter_GetStatuses_Statics::PropPointers), sizeof(Z_Construct_UFunction_ABaseRPGCharacter_GetStatuses_Statics::BaseRPGCharacter_eventGetStatuses_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ABaseRPGCharacter_GetStatuses_Statics::Function_MetaDataParams), Z_Construct_UFunction_ABaseRPGCharacter_GetStatuses_Statics::Function_MetaDataParams) };
+static_assert(sizeof(Z_Construct_UFunction_ABaseRPGCharacter_GetStatuses_Statics::BaseRPGCharacter_eventGetStatuses_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_ABaseRPGCharacter_GetStatuses()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ABaseRPGCharacter_GetStatuses_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(ABaseRPGCharacter::execGetStatuses)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	*(FPlayerStatuses*)Z_Param__Result=P_THIS->GetStatuses();
+	P_NATIVE_END;
+}
+// End Class ABaseRPGCharacter Function GetStatuses
+
+// Begin Class ABaseRPGCharacter Function SetStatuses
+struct Z_Construct_UFunction_ABaseRPGCharacter_SetStatuses_Statics
+{
+	struct BaseRPGCharacter_eventSetStatuses_Parms
+	{
+		FPlayerStatuses val;
+	};
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "BaseRPGCharacter.h" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FStructPropertyParams NewProp_val;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_ABaseRPGCharacter_SetStatuses_Statics::NewProp_val = { "val", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(BaseRPGCharacter_eventSetStatuses_Parms, val), Z_Construct_UScriptStruct_FPlayerStatuses, METADATA_PARAMS(0, nullptr) }; // 839395657
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ABaseRPGCharacter_SetStatuses_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ABaseRPGCharacter_SetStatuses_Statics::NewProp_val,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_ABaseRPGCharacter_SetStatuses_Statics::PropPointers) < 2048);
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ABaseRPGCharacter_SetStatuses_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ABaseRPGCharacter, nullptr, "SetStatuses", nullptr, nullptr, Z_Construct_UFunction_ABaseRPGCharacter_SetStatuses_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ABaseRPGCharacter_SetStatuses_Statics::PropPointers), sizeof(Z_Construct_UFunction_ABaseRPGCharacter_SetStatuses_Statics::BaseRPGCharacter_eventSetStatuses_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ABaseRPGCharacter_SetStatuses_Statics::Function_MetaDataParams), Z_Construct_UFunction_ABaseRPGCharacter_SetStatuses_Statics::Function_MetaDataParams) };
+static_assert(sizeof(Z_Construct_UFunction_ABaseRPGCharacter_SetStatuses_Statics::BaseRPGCharacter_eventSetStatuses_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_ABaseRPGCharacter_SetStatuses()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ABaseRPGCharacter_SetStatuses_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(ABaseRPGCharacter::execSetStatuses)
+{
+	P_GET_STRUCT(FPlayerStatuses,Z_Param_val);
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->SetStatuses(Z_Param_val);
+	P_NATIVE_END;
+}
+// End Class ABaseRPGCharacter Function SetStatuses
+
 // Begin Class ABaseRPGCharacter
 void ABaseRPGCharacter::StaticRegisterNativesABaseRPGCharacter()
 {
 	UClass* Class = ABaseRPGCharacter::StaticClass();
 	static const FNameNativePtrPair Funcs[] = {
 		{ "DealDamage", &ABaseRPGCharacter::execDealDamage },
+		{ "GetStatuses", &ABaseRPGCharacter::execGetStatuses },
+		{ "SetStatuses", &ABaseRPGCharacter::execSetStatuses },
 	};
 	FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
 }
@@ -90,10 +175,12 @@ struct Z_Construct_UClass_ABaseRPGCharacter_Statics
 		{ "ModuleRelativePath", "BaseRPGCharacter.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_Weapon_MetaData[] = {
+		{ "AllowPrivateAccess", "" },
 		{ "Category", "Weapon" },
 		{ "ModuleRelativePath", "BaseRPGCharacter.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_Statuses_MetaData[] = {
+		{ "AllowPrivateAccess", "" },
 		{ "Category", "Statuses" },
 		{ "ModuleRelativePath", "BaseRPGCharacter.h" },
 	};
@@ -104,6 +191,8 @@ struct Z_Construct_UClass_ABaseRPGCharacter_Statics
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
 		{ &Z_Construct_UFunction_ABaseRPGCharacter_DealDamage, "DealDamage" }, // 419907573
+		{ &Z_Construct_UFunction_ABaseRPGCharacter_GetStatuses, "GetStatuses" }, // 1912276424
+		{ &Z_Construct_UFunction_ABaseRPGCharacter_SetStatuses, "SetStatuses" }, // 3015234104
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
 	static const UECodeGen_Private::FImplementedInterfaceParams InterfaceParams[];
@@ -113,7 +202,7 @@ struct Z_Construct_UClass_ABaseRPGCharacter_Statics
 	static const UECodeGen_Private::FClassParams ClassParams;
 };
 const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_ABaseRPGCharacter_Statics::NewProp_Weapon = { "Weapon", nullptr, (EPropertyFlags)0x0044000000010001, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ABaseRPGCharacter, Weapon), Z_Construct_UClass_UClass, Z_Construct_UClass_AWeapon_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Weapon_MetaData), NewProp_Weapon_MetaData) };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_ABaseRPGCharacter_Statics::NewProp_Statuses = { "Statuses", nullptr, (EPropertyFlags)0x0040000000010001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ABaseRPGCharacter, Statuses), Z_Construct_UScriptStruct_FPlayerStatuses, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Statuses_MetaData), NewProp_Statuses_MetaData) }; // 3450305084
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_ABaseRPGCharacter_Statics::NewProp_Statuses = { "Statuses", nullptr, (EPropertyFlags)0x0040000000010001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ABaseRPGCharacter, Statuses), Z_Construct_UScriptStruct_FPlayerStatuses, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Statuses_MetaData), NewProp_Statuses_MetaData) }; // 839395657
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ABaseRPGCharacter_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ABaseRPGCharacter_Statics::NewProp_Weapon,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ABaseRPGCharacter_Statics::NewProp_Statuses,
@@ -230,15 +319,15 @@ AWeapon::~AWeapon() {}
 // End Class AWeapon
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_Users_capma_Documents_GitHub_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_BaseRPGCharacter_h_Statics
+struct Z_CompiledInDeferFile_FID_Unreal_Projects_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_BaseRPGCharacter_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ABaseRPGCharacter, ABaseRPGCharacter::StaticClass, TEXT("ABaseRPGCharacter"), &Z_Registration_Info_UClass_ABaseRPGCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ABaseRPGCharacter), 2365237252U) },
+		{ Z_Construct_UClass_ABaseRPGCharacter, ABaseRPGCharacter::StaticClass, TEXT("ABaseRPGCharacter"), &Z_Registration_Info_UClass_ABaseRPGCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ABaseRPGCharacter), 2920997465U) },
 		{ Z_Construct_UClass_AWeapon, AWeapon::StaticClass, TEXT("AWeapon"), &Z_Registration_Info_UClass_AWeapon, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AWeapon), 3989858796U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_capma_Documents_GitHub_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_BaseRPGCharacter_h_1110317293(TEXT("/Script/RPGTurnBasedCombat"),
-	Z_CompiledInDeferFile_FID_Users_capma_Documents_GitHub_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_BaseRPGCharacter_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_capma_Documents_GitHub_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_BaseRPGCharacter_h_Statics::ClassInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Unreal_Projects_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_BaseRPGCharacter_h_940246071(TEXT("/Script/RPGTurnBasedCombat"),
+	Z_CompiledInDeferFile_FID_Unreal_Projects_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_BaseRPGCharacter_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Unreal_Projects_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_BaseRPGCharacter_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
 // End Registration

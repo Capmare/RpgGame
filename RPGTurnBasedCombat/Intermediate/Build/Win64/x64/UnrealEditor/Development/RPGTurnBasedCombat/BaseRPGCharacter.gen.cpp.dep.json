@@ -1,23 +1,23 @@
 {
     "Version": "1.2",
     "Data": {
-        "Source": "c:\\users\\capma\\documents\\github\\rpggame\\rpgturnbasedcombat\\intermediate\\build\\win64\\unrealeditor\\inc\\rpgturnbasedcombat\\uht\\baserpgcharacter.gen.cpp",
+        "Source": "f:\\unreal projects\\rpggame\\rpgturnbasedcombat\\intermediate\\build\\win64\\unrealeditor\\inc\\rpgturnbasedcombat\\uht\\baserpgcharacter.gen.cpp",
         "ProvidedModule": "",
-        "PCH": "c:\\users\\capma\\documents\\github\\rpggame\\rpgturnbasedcombat\\intermediate\\build\\win64\\x64\\rpgturnbasedcombateditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.inclorderoldest.h.pch",
+        "PCH": "f:\\unreal projects\\rpggame\\rpgturnbasedcombat\\intermediate\\build\\win64\\x64\\rpgturnbasedcombateditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.inclorderoldest.h.pch",
         "Includes": [
-            "c:\\users\\capma\\documents\\github\\rpggame\\rpgturnbasedcombat\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\rpgturnbasedcombat\\definitions.rpgturnbasedcombat.h",
-            "c:\\users\\capma\\documents\\github\\rpggame\\rpgturnbasedcombat\\source\\rpgturnbasedcombat\\baserpgcharacter.h",
-            "c:\\program files\\epic games\\ue_5.4\\engine\\source\\runtime\\engine\\classes\\gameframework\\character.h",
-            "c:\\program files\\epic games\\ue_5.4\\engine\\source\\runtime\\engine\\classes\\gameframework\\charactermovementreplication.h",
-            "c:\\program files\\epic games\\ue_5.4\\engine\\source\\runtime\\experimental\\iris\\core\\public\\iris\\serialization\\irisobjectreferencepackagemap.h",
-            "c:\\program files\\epic games\\ue_5.4\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\iriscore\\uht\\irisobjectreferencepackagemap.generated.h",
-            "c:\\program files\\epic games\\ue_5.4\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\charactermovementreplication.generated.h",
-            "c:\\program files\\epic games\\ue_5.4\\engine\\source\\runtime\\engine\\classes\\gameframework\\rootmotionsource.h",
-            "c:\\program files\\epic games\\ue_5.4\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\rootmotionsource.generated.h",
-            "c:\\program files\\epic games\\ue_5.4\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\character.generated.h",
-            "c:\\users\\capma\\documents\\github\\rpggame\\rpgturnbasedcombat\\source\\rpgturnbasedcombat\\combat.h",
-            "c:\\users\\capma\\documents\\github\\rpggame\\rpgturnbasedcombat\\intermediate\\build\\win64\\unrealeditor\\inc\\rpgturnbasedcombat\\uht\\combat.generated.h",
-            "c:\\users\\capma\\documents\\github\\rpggame\\rpgturnbasedcombat\\intermediate\\build\\win64\\unrealeditor\\inc\\rpgturnbasedcombat\\uht\\baserpgcharacter.generated.h"
+            "f:\\unreal projects\\rpggame\\rpgturnbasedcombat\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\rpgturnbasedcombat\\definitions.rpgturnbasedcombat.h",
+            "f:\\unreal projects\\rpggame\\rpgturnbasedcombat\\source\\rpgturnbasedcombat\\baserpgcharacter.h",
+            "f:\\ue_5.4\\engine\\source\\runtime\\engine\\classes\\gameframework\\character.h",
+            "f:\\ue_5.4\\engine\\source\\runtime\\engine\\classes\\gameframework\\charactermovementreplication.h",
+            "f:\\ue_5.4\\engine\\source\\runtime\\experimental\\iris\\core\\public\\iris\\serialization\\irisobjectreferencepackagemap.h",
+            "f:\\ue_5.4\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\iriscore\\uht\\irisobjectreferencepackagemap.generated.h",
+            "f:\\ue_5.4\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\charactermovementreplication.generated.h",
+            "f:\\ue_5.4\\engine\\source\\runtime\\engine\\classes\\gameframework\\rootmotionsource.h",
+            "f:\\ue_5.4\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\rootmotionsource.generated.h",
+            "f:\\ue_5.4\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\character.generated.h",
+            "f:\\unreal projects\\rpggame\\rpgturnbasedcombat\\source\\rpgturnbasedcombat\\combat.h",
+            "f:\\unreal projects\\rpggame\\rpgturnbasedcombat\\intermediate\\build\\win64\\unrealeditor\\inc\\rpgturnbasedcombat\\uht\\combat.generated.h",
+            "f:\\unreal projects\\rpggame\\rpgturnbasedcombat\\intermediate\\build\\win64\\unrealeditor\\inc\\rpgturnbasedcombat\\uht\\baserpgcharacter.generated.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

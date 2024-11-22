@@ -42,6 +42,18 @@
     <ClInclude Include="..\..\Source\RPGTurnBasedCombat\Combat.h">
       <Filter>Source\RPGTurnBasedCombat</Filter>
     </ClInclude>
+    <ClCompile Include="..\..\Source\RPGTurnBasedCombat\CombatStartPoint.cpp">
+      <Filter>Source\RPGTurnBasedCombat</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\RPGTurnBasedCombat\CombatStartPoint.h">
+      <Filter>Source\RPGTurnBasedCombat</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\RPGTurnBasedCombat\MagicBuilder.cpp">
+      <Filter>Source\RPGTurnBasedCombat</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\RPGTurnBasedCombat\MagicBuilder.h">
+      <Filter>Source\RPGTurnBasedCombat</Filter>
+    </ClInclude>
     <None Include="..\..\Source\RPGTurnBasedCombat\RPGTurnBasedCombat.Build.cs">
       <Filter>Source\RPGTurnBasedCombat</Filter>
     </None>

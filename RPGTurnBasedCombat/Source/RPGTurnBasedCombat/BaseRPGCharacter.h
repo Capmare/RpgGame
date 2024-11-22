@@ -19,10 +19,15 @@ public:
 	// Sets default values for this character's properties
 	ABaseRPGCharacter();
 
-
+	UFUNCTION(BlueprintCallable)
+	FPlayerStatuses GetStatuses() const { return Statuses; }
+	UFUNCTION(BlueprintCallable)
+	void SetStatuses(FPlayerStatuses val) { Statuses = val; }
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+
 
 public:	
 	UFUNCTION(BlueprintCallable)
@@ -35,10 +40,15 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 private:
-	UPROPERTY(Category = "Weapon", EditDefaultsOnly)
+	EDamageTypes GetRandomTypeOfDamage();
+
+
+	UPROPERTY(Category = "Weapon", EditDefaultsOnly, meta = (AllowPrivateAccess))
 	TSubclassOf<AWeapon> Weapon;
-	UPROPERTY(Category = "Statuses", EditDefaultsOnly)
+	UPROPERTY(Category = "Statuses", EditDefaultsOnly, meta = (AllowPrivateAccess))
 	FPlayerStatuses Statuses;
+
+
 };
 
 UCLASS()

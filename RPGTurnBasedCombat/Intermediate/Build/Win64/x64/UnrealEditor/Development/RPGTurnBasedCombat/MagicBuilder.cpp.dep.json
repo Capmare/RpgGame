@@ -1,0 +1,15 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "f:\\unreal projects\\rpggame\\rpgturnbasedcombat\\source\\rpgturnbasedcombat\\magicbuilder.cpp",
+        "ProvidedModule": "",
+        "PCH": "f:\\unreal projects\\rpggame\\rpgturnbasedcombat\\intermediate\\build\\win64\\x64\\rpgturnbasedcombateditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.inclorderoldest.h.pch",
+        "Includes": [
+            "f:\\unreal projects\\rpggame\\rpgturnbasedcombat\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\rpgturnbasedcombat\\definitions.rpgturnbasedcombat.h",
+            "f:\\unreal projects\\rpggame\\rpgturnbasedcombat\\source\\rpgturnbasedcombat\\magicbuilder.h",
+            "f:\\unreal projects\\rpggame\\rpgturnbasedcombat\\intermediate\\build\\win64\\unrealeditor\\inc\\rpgturnbasedcombat\\uht\\magicbuilder.generated.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

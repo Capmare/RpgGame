@@ -35,25 +35,18 @@ struct FPlayerStatuses
 	UPROPERTY(Category = "Magic", BlueprintReadOnly, VisibleDefaultsOnly)
 	FMagicStatus CurrentMagicStatus{};
 
-	//UPROPERTY(Category = "Values",EditDefaultsOnly)
-	TArray<TArray<EDamageTypes>> DamageTypes;
-
-	void UpdateDamageType() {
-
-		DamageTypes.Empty();
-
-		DamageTypes.Emplace(CriticalDamage);
-		DamageTypes.Emplace(NullifyDamage);
-		DamageTypes.Emplace(WeakDamage);
-	}
-private:
-	UPROPERTY(Category = "Values",EditDefaultsOnly)
+	
+	UPROPERTY(Category = "Weaknesses",EditDefaultsOnly)
 	TArray<TEnumAsByte<EDamageTypes>> CriticalDamage;
-	UPROPERTY(Category = "Values",EditDefaultsOnly)
-	TArray<TEnumAsByte<EDamageTypes>> NullifyDamage;
-	UPROPERTY(Category = "Values",EditDefaultsOnly)
-	TArray<TEnumAsByte<EDamageTypes>> WeakDamage;
 
+	UPROPERTY(Category = "Weaknesses",EditDefaultsOnly)
+	TArray<TEnumAsByte<EDamageTypes>> NullifyDamage;
+
+	UPROPERTY(Category = "Weaknesses",EditDefaultsOnly)
+	TArray<TEnumAsByte<EDamageTypes>> WeakDamage;
+	
+	UPROPERTY(Category = "Weaknesses",EditDefaultsOnly)
+	TArray<TEnumAsByte<EDamageTypes>> ReturnDamage;
 };
 
 USTRUCT(BlueprintType)
@@ -62,8 +55,10 @@ struct FDealingDamage {
 
 	UPROPERTY(Category = "Values",EditDefaultsOnly)
 	float DamageAmmount{};
+
 	UPROPERTY(Category = "Values",EditDefaultsOnly)
 	TEnumAsByte<EDamageTypes> DamageType;
+
 };
 
 // This class does not need to be modified.

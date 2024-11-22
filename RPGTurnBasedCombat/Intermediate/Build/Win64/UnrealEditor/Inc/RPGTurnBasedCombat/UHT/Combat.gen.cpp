@@ -194,15 +194,19 @@ struct Z_Construct_UScriptStruct_FPlayerStatuses_Statics
 		{ "ModuleRelativePath", "Combat.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_CriticalDamage_MetaData[] = {
-		{ "Category", "Values" },
+		{ "Category", "Weaknesses" },
 		{ "ModuleRelativePath", "Combat.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_NullifyDamage_MetaData[] = {
-		{ "Category", "Values" },
+		{ "Category", "Weaknesses" },
 		{ "ModuleRelativePath", "Combat.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_WeakDamage_MetaData[] = {
-		{ "Category", "Values" },
+		{ "Category", "Weaknesses" },
+		{ "ModuleRelativePath", "Combat.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_ReturnDamage_MetaData[] = {
+		{ "Category", "Weaknesses" },
 		{ "ModuleRelativePath", "Combat.h" },
 	};
 #endif // WITH_METADATA
@@ -214,6 +218,8 @@ struct Z_Construct_UScriptStruct_FPlayerStatuses_Statics
 	static const UECodeGen_Private::FArrayPropertyParams NewProp_NullifyDamage;
 	static const UECodeGen_Private::FBytePropertyParams NewProp_WeakDamage_Inner;
 	static const UECodeGen_Private::FArrayPropertyParams NewProp_WeakDamage;
+	static const UECodeGen_Private::FBytePropertyParams NewProp_ReturnDamage_Inner;
+	static const UECodeGen_Private::FArrayPropertyParams NewProp_ReturnDamage;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static void* NewStructOps()
 	{
@@ -224,11 +230,13 @@ struct Z_Construct_UScriptStruct_FPlayerStatuses_Statics
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UScriptStruct_FPlayerStatuses_Statics::NewProp_Health = { "Health", nullptr, (EPropertyFlags)0x0010000000010005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FPlayerStatuses, Health), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Health_MetaData), NewProp_Health_MetaData) };
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FPlayerStatuses_Statics::NewProp_CurrentMagicStatus = { "CurrentMagicStatus", nullptr, (EPropertyFlags)0x0010000000030015, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FPlayerStatuses, CurrentMagicStatus), Z_Construct_UScriptStruct_FMagicStatus, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CurrentMagicStatus_MetaData), NewProp_CurrentMagicStatus_MetaData) }; // 3723789453
 const UECodeGen_Private::FBytePropertyParams Z_Construct_UScriptStruct_FPlayerStatuses_Statics::NewProp_CriticalDamage_Inner = { "CriticalDamage", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UEnum_RPGTurnBasedCombat_EDamageTypes, METADATA_PARAMS(0, nullptr) }; // 2602575806
-const UECodeGen_Private::FArrayPropertyParams Z_Construct_UScriptStruct_FPlayerStatuses_Statics::NewProp_CriticalDamage = { "CriticalDamage", nullptr, (EPropertyFlags)0x0040000000010001, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FPlayerStatuses, CriticalDamage), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CriticalDamage_MetaData), NewProp_CriticalDamage_MetaData) }; // 2602575806
+const UECodeGen_Private::FArrayPropertyParams Z_Construct_UScriptStruct_FPlayerStatuses_Statics::NewProp_CriticalDamage = { "CriticalDamage", nullptr, (EPropertyFlags)0x0010000000010001, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FPlayerStatuses, CriticalDamage), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CriticalDamage_MetaData), NewProp_CriticalDamage_MetaData) }; // 2602575806
 const UECodeGen_Private::FBytePropertyParams Z_Construct_UScriptStruct_FPlayerStatuses_Statics::NewProp_NullifyDamage_Inner = { "NullifyDamage", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UEnum_RPGTurnBasedCombat_EDamageTypes, METADATA_PARAMS(0, nullptr) }; // 2602575806
-const UECodeGen_Private::FArrayPropertyParams Z_Construct_UScriptStruct_FPlayerStatuses_Statics::NewProp_NullifyDamage = { "NullifyDamage", nullptr, (EPropertyFlags)0x0040000000010001, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FPlayerStatuses, NullifyDamage), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_NullifyDamage_MetaData), NewProp_NullifyDamage_MetaData) }; // 2602575806
+const UECodeGen_Private::FArrayPropertyParams Z_Construct_UScriptStruct_FPlayerStatuses_Statics::NewProp_NullifyDamage = { "NullifyDamage", nullptr, (EPropertyFlags)0x0010000000010001, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FPlayerStatuses, NullifyDamage), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_NullifyDamage_MetaData), NewProp_NullifyDamage_MetaData) }; // 2602575806
 const UECodeGen_Private::FBytePropertyParams Z_Construct_UScriptStruct_FPlayerStatuses_Statics::NewProp_WeakDamage_Inner = { "WeakDamage", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UEnum_RPGTurnBasedCombat_EDamageTypes, METADATA_PARAMS(0, nullptr) }; // 2602575806
-const UECodeGen_Private::FArrayPropertyParams Z_Construct_UScriptStruct_FPlayerStatuses_Statics::NewProp_WeakDamage = { "WeakDamage", nullptr, (EPropertyFlags)0x0040000000010001, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FPlayerStatuses, WeakDamage), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_WeakDamage_MetaData), NewProp_WeakDamage_MetaData) }; // 2602575806
+const UECodeGen_Private::FArrayPropertyParams Z_Construct_UScriptStruct_FPlayerStatuses_Statics::NewProp_WeakDamage = { "WeakDamage", nullptr, (EPropertyFlags)0x0010000000010001, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FPlayerStatuses, WeakDamage), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_WeakDamage_MetaData), NewProp_WeakDamage_MetaData) }; // 2602575806
+const UECodeGen_Private::FBytePropertyParams Z_Construct_UScriptStruct_FPlayerStatuses_Statics::NewProp_ReturnDamage_Inner = { "ReturnDamage", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UEnum_RPGTurnBasedCombat_EDamageTypes, METADATA_PARAMS(0, nullptr) }; // 2602575806
+const UECodeGen_Private::FArrayPropertyParams Z_Construct_UScriptStruct_FPlayerStatuses_Statics::NewProp_ReturnDamage = { "ReturnDamage", nullptr, (EPropertyFlags)0x0010000000010001, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FPlayerStatuses, ReturnDamage), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ReturnDamage_MetaData), NewProp_ReturnDamage_MetaData) }; // 2602575806
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FPlayerStatuses_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FPlayerStatuses_Statics::NewProp_Health,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FPlayerStatuses_Statics::NewProp_CurrentMagicStatus,
@@ -238,6 +246,8 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FP
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FPlayerStatuses_Statics::NewProp_NullifyDamage,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FPlayerStatuses_Statics::NewProp_WeakDamage_Inner,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FPlayerStatuses_Statics::NewProp_WeakDamage,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FPlayerStatuses_Statics::NewProp_ReturnDamage_Inner,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FPlayerStatuses_Statics::NewProp_ReturnDamage,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FPlayerStatuses_Statics::PropPointers) < 2048);
 const UECodeGen_Private::FStructParams Z_Construct_UScriptStruct_FPlayerStatuses_Statics::StructParams = {
@@ -444,23 +454,23 @@ UCombat::~UCombat() {}
 // End Interface UCombat
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_Users_capma_Documents_GitHub_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_Combat_h_Statics
+struct Z_CompiledInDeferFile_FID_Unreal_Projects_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_Combat_h_Statics
 {
 	static constexpr FEnumRegisterCompiledInInfo EnumInfo[] = {
 		{ EDamageTypes_StaticEnum, TEXT("EDamageTypes"), &Z_Registration_Info_UEnum_EDamageTypes, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 2602575806U) },
 	};
 	static constexpr FStructRegisterCompiledInInfo ScriptStructInfo[] = {
 		{ FMagicStatus::StaticStruct, Z_Construct_UScriptStruct_FMagicStatus_Statics::NewStructOps, TEXT("MagicStatus"), &Z_Registration_Info_UScriptStruct_MagicStatus, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FMagicStatus), 3723789453U) },
-		{ FPlayerStatuses::StaticStruct, Z_Construct_UScriptStruct_FPlayerStatuses_Statics::NewStructOps, TEXT("PlayerStatuses"), &Z_Registration_Info_UScriptStruct_PlayerStatuses, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FPlayerStatuses), 3450305084U) },
+		{ FPlayerStatuses::StaticStruct, Z_Construct_UScriptStruct_FPlayerStatuses_Statics::NewStructOps, TEXT("PlayerStatuses"), &Z_Registration_Info_UScriptStruct_PlayerStatuses, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FPlayerStatuses), 839395657U) },
 		{ FDealingDamage::StaticStruct, Z_Construct_UScriptStruct_FDealingDamage_Statics::NewStructOps, TEXT("DealingDamage"), &Z_Registration_Info_UScriptStruct_DealingDamage, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FDealingDamage), 1579205689U) },
 	};
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
 		{ Z_Construct_UClass_UCombat, UCombat::StaticClass, TEXT("UCombat"), &Z_Registration_Info_UClass_UCombat, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UCombat), 3896156420U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_capma_Documents_GitHub_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_Combat_h_4271712556(TEXT("/Script/RPGTurnBasedCombat"),
-	Z_CompiledInDeferFile_FID_Users_capma_Documents_GitHub_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_Combat_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_capma_Documents_GitHub_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_Combat_h_Statics::ClassInfo),
-	Z_CompiledInDeferFile_FID_Users_capma_Documents_GitHub_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_Combat_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_capma_Documents_GitHub_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_Combat_h_Statics::ScriptStructInfo),
-	Z_CompiledInDeferFile_FID_Users_capma_Documents_GitHub_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_Combat_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_capma_Documents_GitHub_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_Combat_h_Statics::EnumInfo));
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Unreal_Projects_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_Combat_h_1411070256(TEXT("/Script/RPGTurnBasedCombat"),
+	Z_CompiledInDeferFile_FID_Unreal_Projects_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_Combat_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Unreal_Projects_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_Combat_h_Statics::ClassInfo),
+	Z_CompiledInDeferFile_FID_Unreal_Projects_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_Combat_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Unreal_Projects_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_Combat_h_Statics::ScriptStructInfo),
+	Z_CompiledInDeferFile_FID_Unreal_Projects_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_Combat_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Unreal_Projects_RpgGame_RPGTurnBasedCombat_Source_RPGTurnBasedCombat_Combat_h_Statics::EnumInfo));
 // End Registration
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

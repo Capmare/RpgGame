@@ -11,6 +11,7 @@
     <None Include="..\..\Source\RPGTurnBasedCombatEditor.Target.cs">
       <Filter>Source</Filter>
     </None>
+    <None Include="..\..\.gitignore" />
     <None Include="..\..\.vsconfig" />
     <Filter Include="Config">
       <UniqueIdentifier>{FA535FFB-25E1-3D20-B416-52F9BE21E06E}</UniqueIdentifier>
@@ -40,6 +41,18 @@
       <Filter>Source\RPGTurnBasedCombat</Filter>
     </ClCompile>
     <ClInclude Include="..\..\Source\RPGTurnBasedCombat\Combat.h">
+      <Filter>Source\RPGTurnBasedCombat</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\RPGTurnBasedCombat\CombatCamera.cpp">
+      <Filter>Source\RPGTurnBasedCombat</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\RPGTurnBasedCombat\CombatCamera.h">
+      <Filter>Source\RPGTurnBasedCombat</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\RPGTurnBasedCombat\CombatCameraController.cpp">
+      <Filter>Source\RPGTurnBasedCombat</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\RPGTurnBasedCombat\CombatCameraController.h">
       <Filter>Source\RPGTurnBasedCombat</Filter>
     </ClInclude>
     <ClCompile Include="..\..\Source\RPGTurnBasedCombat\CombatStartPoint.cpp">

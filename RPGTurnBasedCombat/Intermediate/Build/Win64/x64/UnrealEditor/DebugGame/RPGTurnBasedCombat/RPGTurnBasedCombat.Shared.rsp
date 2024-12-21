@@ -283,6 +283,9 @@
 /I "Editor\AnimationEditMode\Public"
 /I "F:\Unreal Projects\RpgGame\RPGTurnBasedCombat\Intermediate\Build\Win64\UnrealEditor\Inc\RPGTurnBasedCombat\UHT"
 /I "F:\Unreal Projects\RpgGame\RPGTurnBasedCombat\Source"
+/I "..\Plugins\EnhancedInput\Intermediate\Build\Win64\UnrealEditor\Inc\EnhancedInput\UHT"
+/I "..\Plugins\EnhancedInput\Source"
+/I "..\Plugins\EnhancedInput\Source\EnhancedInput\Public"
 /external:W0
 /external:I "ThirdParty\LibTiff\Source\Win64"
 /external:I "ThirdParty\LibTiff\Source"

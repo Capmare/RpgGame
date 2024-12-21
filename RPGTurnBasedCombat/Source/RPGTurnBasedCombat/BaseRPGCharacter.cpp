@@ -12,6 +12,21 @@ ABaseRPGCharacter::ABaseRPGCharacter()
 
 	//Weapon = CreateDefaultSubobject<AWeapon>(TEXT("Weapon"));
 
+	
+
+}
+
+void ABaseRPGCharacter::Init(const bool bShouldGenerateRandomStat, const bool bIsPlayer)
+{
+	if (bShouldGenerateRandomStat)
+	{
+		Statuses.CriticalDamage.Add(GetRandomTypeOfDamage());
+		Statuses.NullifyDamage.Add(GetRandomTypeOfDamage());
+		Statuses.ReturnDamage.Add(GetRandomTypeOfDamage());
+		Statuses.WeakDamage.Add(GetRandomTypeOfDamage());
+	}
+
+	bIsPlayerCharacter = bIsPlayer;
 }
 
 // Called when the game starts or when spawned
@@ -42,27 +57,29 @@ EDamageTypes ABaseRPGCharacter::GetRandomTypeOfDamage()
 	return (EDamageTypes)UKismetMathLibrary::RandomInteger(5);
 }
 
+
 AWeapon::AWeapon()
 {
 	WeaponMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Weapon"));
 
 }
 
+
+
 void ABaseRPGCharacter::DealDamage(FDealingDamage ReceivedDamage)
 {
 	switch (ReceivedDamage.DamageType)
 	{
-	case FIRE:
-		
+	case EDamageTypes::FIRE:
 		break;
-	case ELECTRICITY:
+	case EDamageTypes::ELECTRICITY:
 		break;
-	case WIND:
-	case MYSTIC:
+	case EDamageTypes::WIND:
 		break;
-	case BLOOD:
+	case EDamageTypes::MYSTIC:
 		break;
-
+	case EDamageTypes::BLOOD:
+		break;
 	default:
 		break;
 	}

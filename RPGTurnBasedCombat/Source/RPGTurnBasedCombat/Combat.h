@@ -19,12 +19,14 @@ struct FMagicStatus {
 };
 
 UENUM(BlueprintType)
-enum EDamageTypes 
+enum class EDamageTypes : uint8
 {
 	FIRE, ELECTRICITY, WIND, MYSTIC, BLOOD
 
 };
 
+
+// Types of damages that the character will be affected with
 USTRUCT(BlueprintType)
 struct FPlayerStatuses
 {
@@ -36,28 +38,29 @@ struct FPlayerStatuses
 	FMagicStatus CurrentMagicStatus{};
 
 	
-	UPROPERTY(Category = "Weaknesses",EditDefaultsOnly)
-	TArray<TEnumAsByte<EDamageTypes>> CriticalDamage;
+	UPROPERTY(Category = "Weaknesses",VisibleAnywhere, BlueprintReadWrite)
+	TArray<EDamageTypes> CriticalDamage;
 
-	UPROPERTY(Category = "Weaknesses",EditDefaultsOnly)
-	TArray<TEnumAsByte<EDamageTypes>> NullifyDamage;
+	UPROPERTY(Category = "Weaknesses", VisibleAnywhere, BlueprintReadWrite)
+	TArray<EDamageTypes> NullifyDamage;
 
-	UPROPERTY(Category = "Weaknesses",EditDefaultsOnly)
-	TArray<TEnumAsByte<EDamageTypes>> WeakDamage;
+	UPROPERTY(Category = "Weaknesses", VisibleAnywhere, BlueprintReadWrite)
+	TArray<EDamageTypes> WeakDamage;
 	
-	UPROPERTY(Category = "Weaknesses",EditDefaultsOnly)
-	TArray<TEnumAsByte<EDamageTypes>> ReturnDamage;
+	UPROPERTY(Category = "Weaknesses", VisibleAnywhere, BlueprintReadWrite)
+	TArray<EDamageTypes> ReturnDamage;
 };
 
+// Damage that the character will give
 USTRUCT(BlueprintType)
 struct FDealingDamage {
 	GENERATED_USTRUCT_BODY()
 
-	UPROPERTY(Category = "Values",EditDefaultsOnly)
+	UPROPERTY(Category = "Values",EditDefaultsOnly, BlueprintReadWrite)
 	float DamageAmmount{};
 
-	UPROPERTY(Category = "Values",EditDefaultsOnly)
-	TEnumAsByte<EDamageTypes> DamageType;
+	UPROPERTY(Category = "Values",EditDefaultsOnly, BlueprintReadWrite)
+	EDamageTypes DamageType;
 
 };
 
@@ -80,4 +83,28 @@ public:
 	UFUNCTION(BlueprintCallable)
 	virtual void DealDamage(struct FDealingDamage ReceivedDamage) = 0;
 
+
 };
+
+UINTERFACE(MinimalAPI, meta=(CannotImplementInterfaceInBlueprint))
+class UCameraActions : public UInterface
+{
+	GENERATED_BODY()
+};
+
+/**
+ * 
+ */
+class RPGTURNBASEDCOMBAT_API ICameraActions
+{
+	GENERATED_BODY()
+
+	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
+public:
+	UFUNCTION(BlueprintCallable)
+	virtual void MoveToNextCamera() = 0;
+
+
+};
+
+	

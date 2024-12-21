@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RPGTurnBasedCombatModuleRules")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Development")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fcda7382c56adf783fb96a58a272d04fe85db4b5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+19131f5feffe1ddc93e2f9dbcdb4d211e8e11437")]
 [assembly: System.Reflection.AssemblyProductAttribute("RPGTurnBasedCombatModuleRules")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RPGTurnBasedCombatModuleRules")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

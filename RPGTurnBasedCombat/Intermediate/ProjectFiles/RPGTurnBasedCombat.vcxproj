@@ -260,6 +260,7 @@
     <None Include="..\..\RPGTurnBasedCombat.uproject"/>
     <None Include="..\..\Source\RPGTurnBasedCombat.Target.cs"/>
     <None Include="..\..\Source\RPGTurnBasedCombatEditor.Target.cs"/>
+    <None Include="..\..\.gitignore"/>
     <None Include="..\..\.vsconfig"/>
     <None Include="..\..\Config\DefaultEditor.ini"/>
     <None Include="..\..\Config\DefaultEngine.ini"/>
@@ -273,6 +274,14 @@
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClInclude Include="..\..\Source\RPGTurnBasedCombat\Combat.h"/>
+    <ClCompile Include="..\..\Source\RPGTurnBasedCombat\CombatCamera.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\RPGTurnBasedCombat\CombatCamera.h"/>
+    <ClCompile Include="..\..\Source\RPGTurnBasedCombat\CombatCameraController.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\RPGTurnBasedCombat\CombatCameraController.h"/>
     <ClCompile Include="..\..\Source\RPGTurnBasedCombat\CombatStartPoint.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>

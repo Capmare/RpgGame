@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Combat.h"
+#include "Kismet/KismetMathLibrary.h"
 #include "BaseRPGCharacter.generated.h"
 
 
@@ -20,9 +21,20 @@ public:
 	ABaseRPGCharacter();
 
 	UFUNCTION(BlueprintCallable)
+	void Init(const bool bShouldGenerateRandomStat, const bool bIsPlayer);
+
+
+	UFUNCTION(BlueprintCallable)
 	FPlayerStatuses GetStatuses() const { return Statuses; }
+
 	UFUNCTION(BlueprintCallable)
 	void SetStatuses(FPlayerStatuses val) { Statuses = val; }
+
+	FVector GetWorldCombatCameraPosition() const { return UKismetMathLibrary::TransformLocation(GetTransform(),CombatCameraPosition); }
+	bool GetIsPlayer() const { return bIsPlayerCharacter; }
+
+	UPROPERTY(Category = "Combat_Priority", VisibleAnywhere, BlueprintReadWrite)
+	uint8 PlayerPriority{ 0 };
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -42,13 +54,19 @@ public:
 private:
 	EDamageTypes GetRandomTypeOfDamage();
 
-
+	// weapon, used only for player and not enemies
 	UPROPERTY(Category = "Weapon", EditDefaultsOnly, meta = (AllowPrivateAccess))
 	TSubclassOf<AWeapon> Weapon;
-	UPROPERTY(Category = "Statuses", EditDefaultsOnly, meta = (AllowPrivateAccess))
+	// statuses that player is affected by
+	UPROPERTY(Category = "Statuses", VisibleAnywhere, meta = (AllowPrivateAccess))
 	FPlayerStatuses Statuses;
 
+	UPROPERTY(Category = "Camera", EditAnywhere, meta = (AllowPrivateAccess), Meta = (MakeEditWidget = "true"))
+	FVector CombatCameraPosition;
 
+
+
+	bool bIsPlayerCharacter{ false };
 };
 
 UCLASS()

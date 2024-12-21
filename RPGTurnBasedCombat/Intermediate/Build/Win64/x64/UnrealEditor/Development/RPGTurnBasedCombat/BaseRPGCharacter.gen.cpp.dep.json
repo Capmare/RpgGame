@@ -17,6 +17,9 @@
             "f:\\ue_5.4\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\character.generated.h",
             "f:\\unreal projects\\rpggame\\rpgturnbasedcombat\\source\\rpgturnbasedcombat\\combat.h",
             "f:\\unreal projects\\rpggame\\rpgturnbasedcombat\\intermediate\\build\\win64\\unrealeditor\\inc\\rpgturnbasedcombat\\uht\\combat.generated.h",
+            "f:\\ue_5.4\\engine\\source\\runtime\\engine\\classes\\kismet\\kismetmathlibrary.h",
+            "f:\\ue_5.4\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\kismetmathlibrary.generated.h",
+            "f:\\ue_5.4\\engine\\source\\runtime\\engine\\classes\\kismet\\kismetmathlibrary.inl",
             "f:\\unreal projects\\rpggame\\rpgturnbasedcombat\\intermediate\\build\\win64\\unrealeditor\\inc\\rpgturnbasedcombat\\uht\\baserpgcharacter.generated.h"
         ],
         "ImportedModules": [],

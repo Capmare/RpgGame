@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
+#include "InputAction.h"
 #include "CombatCameraController.generated.h"
 
 /**
@@ -18,13 +19,30 @@ class RPGTURNBASEDCOMBAT_API ACombatCameraController : public APlayerController
 public:
 	virtual void SetupInputComponent() override;
 
-
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputMappingContext* DefaultMappingContext;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	class UInputAction* NextCameraAction;
+	UInputAction* NextCameraAction;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* PreviousCameraAction;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* MoveListUpAction;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* MoveListDownAction;
 
 private:
 	void NextCharacter();
+	void PreviousCharacter();
+	void MoveListSelectionDown();
+	void MoveListSelectionUp();
+
+	APawn* Pawn;
+
+
+	
+
 };

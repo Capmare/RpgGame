@@ -18,9 +18,7 @@ public:
 	// Sets default values for this pawn's properties
 	ACombatCamera();
 
-	UPROPERTY(category = "PlayerCharacters", VisibleAnywhere, BlueprintReadOnly)
-
-	TArray<class ABaseRPGCharacter*> PlayerActors;
+	class ABaseRPGCharacter* GetCurrentPlayer() const { return CurrentPlayer; }
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -41,19 +39,30 @@ public:
 private:
 
 	virtual void MoveToNextCamera() override;
-
+	virtual void RotateCameraToNextEnemy(bool bIsInverted) override;
 
 	UFUNCTION()
-	void TimelineValue(float val);
+	void CameraTranslationTimelineValue(float val);
+	UFUNCTION()
+	void CameraRotationTimelineValue(float val);
 
 	UPROPERTY(Category = "Camera", EditDefaultsOnly, meta = (AllowPrivateAccess = "true"))
 	class UCurveFloat* TimelineCurve;
 
-	FTimeline CurveFTimeline;
+	TArray<class ABaseRPGCharacter*> PlayerActors;
+	TArray<class ABaseRPGCharacter*> EnemyActors;
 
-	FVector StartLoc{};
-	FVector EndLoc{};
+	class ABaseRPGCharacter* CurrentPlayer;
 
+	FTimeline CameraTranslationCurveFTimeline;
+	FTimeline CameraRotationCurveFTimeline;
 
-	int CurrentCameraPosition{0};
+	FVector StartCameraLoc{};
+	FVector EndCameraLoc{};
+
+	FVector StartCameraRot{};
+	FVector EndCameraRot{};
+
+	int CurrentCameraPosition{};
+	int CurrentCameraRotation{};
 };

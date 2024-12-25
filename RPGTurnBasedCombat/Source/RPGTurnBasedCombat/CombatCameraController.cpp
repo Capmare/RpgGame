@@ -6,6 +6,10 @@
 #include "EnhancedInputSubsystems.h"
 #include "Kismet/KismetSystemLibrary.h" 
 #include "Combat.h"
+#include "CombatUI.h"
+#include "AbilitiesWidget.h"
+#include "BaseRPGCharacter.h"
+#include "CombatCamera.h"
 
 void ACombatCameraController::BeginPlay()
 {
@@ -15,15 +19,20 @@ void ACombatCameraController::BeginPlay()
 	{
 		Subsystem->AddMappingContext(DefaultMappingContext, 0);
 	}
+
+	Pawn = GetPawn();
 }
 
 void ACombatCameraController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
 	if (UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent)) {
-
+		
 		
 		EnhancedInputComponent->BindAction(NextCameraAction, ETriggerEvent::Started, this, &ACombatCameraController::NextCharacter);
+		EnhancedInputComponent->BindAction(PreviousCameraAction, ETriggerEvent::Started, this, &ACombatCameraController::PreviousCharacter);
+		EnhancedInputComponent->BindAction(MoveListUpAction, ETriggerEvent::Started, this, &ACombatCameraController::MoveListSelectionUp);
+		EnhancedInputComponent->BindAction(MoveListDownAction, ETriggerEvent::Started, this, &ACombatCameraController::MoveListSelectionDown);
 
 	}
 
@@ -31,11 +40,47 @@ void ACombatCameraController::SetupInputComponent()
 
 void ACombatCameraController::NextCharacter()
 {
-	APawn* pawn = GetPawn();
-
-	if (Cast<ICameraActions>(pawn))
-	{
-		Cast<ICameraActions>(pawn)->MoveToNextCamera();
-	}
 	
+
+	if (Cast<ICameraActions>(Pawn))
+	{
+		Cast<ICameraActions>(Pawn)->RotateCameraToNextEnemy(false);
+	}
+	}
+
+void ACombatCameraController::PreviousCharacter()
+{
+	if (Cast<ICameraActions>(Pawn))
+	{
+		Cast<ICameraActions>(Pawn)->RotateCameraToNextEnemy(true);
+	}
 }
+
+void ACombatCameraController::MoveListSelectionDown()
+{
+	if (ACombatCamera* CombatCamera = Cast<ACombatCamera>(Pawn))
+	{
+		if (ABaseRPGCharacter* RPGCharacter = Cast<ABaseRPGCharacter>(CombatCamera->GetCurrentPlayer()))
+		{
+			if (UCombatUI* CombatWidget = Cast<UCombatUI>(RPGCharacter->FirstCombatWidget->GetWidget()))
+			{
+				CombatWidget->NavigateDown();
+			}
+		}
+	}
+}
+
+void ACombatCameraController::MoveListSelectionUp()
+{
+	if (ACombatCamera* CombatCamera = Cast<ACombatCamera>(Pawn))
+	{
+		if (ABaseRPGCharacter* RPGCharacter = Cast<ABaseRPGCharacter>(CombatCamera->GetCurrentPlayer()))
+		{
+			if (UCombatUI* CombatWidget = Cast<UCombatUI>(RPGCharacter->FirstCombatWidget->GetWidget()))
+			{
+				CombatWidget->NavigateUp();
+			}
+		}
+	}
+}
+

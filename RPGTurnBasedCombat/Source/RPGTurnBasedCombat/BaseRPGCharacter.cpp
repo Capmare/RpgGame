@@ -3,6 +3,10 @@
 
 #include "BaseRPGCharacter.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "Components/WidgetComponent.h"
+#include "AbilitiesWidget.h"
+#include "UpdateUI.h"
+#include "CombatUI.h"
 
 // Sets default values
 ABaseRPGCharacter::ABaseRPGCharacter()
@@ -10,7 +14,11 @@ ABaseRPGCharacter::ABaseRPGCharacter()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 
-	//Weapon = CreateDefaultSubobject<AWeapon>(TEXT("Weapon"));
+	Weapon = CreateDefaultSubobject<UWeapon>(TEXT("Weapon"));
+
+	FirstCombatWidget = CreateDefaultSubobject<UAbilitiesWidget>(TEXT("CombatWidget"));
+
+	FirstCombatWidget->SetupAttachment(RootComponent);
 
 	
 
@@ -34,6 +42,14 @@ void ABaseRPGCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
+	UCombatUI* Widget = Cast<UCombatUI>(FirstCombatWidget->GetWidget());
+
+	if (IUpdateUI* IUpdateUIInterface = Cast<IUpdateUI>(Widget))
+	{
+		IUpdateUIInterface->Execute_RefreshObjects(Widget, Abilities);
+	}
+	
+	
 }
 
 
@@ -58,11 +74,6 @@ EDamageTypes ABaseRPGCharacter::GetRandomTypeOfDamage()
 }
 
 
-AWeapon::AWeapon()
-{
-	WeaponMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Weapon"));
-
-}
 
 
 
@@ -89,8 +100,4 @@ void ABaseRPGCharacter::DealDamage(FDealingDamage ReceivedDamage)
 
 }
 
-void AWeapon::BeginPlay()
-{
-	PrimaryActorTick.bCanEverTick = false;
 
-}

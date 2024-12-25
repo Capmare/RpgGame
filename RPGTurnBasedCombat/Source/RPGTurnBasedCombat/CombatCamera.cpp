@@ -16,7 +16,7 @@ ACombatCamera::ACombatCamera()
 
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera")); 
-
+	SpringArm->TargetArmLength = 0;
 	Camera->SetupAttachment(SpringArm);
 }
 
@@ -38,6 +38,8 @@ void ACombatCamera::BeginPlay()
 		// remove actors from array if not playable character, perform swap so it performs a pop_back
 		if (!player->GetIsPlayer())
 		{
+
+			EnemyActors.Add(player);
 			FoundActors.RemoveAt(Iterator);
 			--Iterator;
 		}
@@ -56,7 +58,8 @@ void ACombatCamera::BeginPlay()
 	if (!PlayerActors.IsEmpty())
 	{
 		SpringArm->SetWorldLocation(PlayerActors[0]->GetWorldCombatCameraPosition());
-		SpringArm->SetWorldRotation(PlayerActors[0]->GetActorRotation());
+		RotateCameraToNextEnemy(false);
+		CurrentPlayer = PlayerActors[0];
 	}
 }
 
@@ -65,8 +68,8 @@ void ACombatCamera::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	CurveFTimeline.TickTimeline(DeltaTime);
-
+	CameraTranslationCurveFTimeline.TickTimeline(DeltaTime);
+	CameraRotationCurveFTimeline.TickTimeline(DeltaTime);
 
 }
 
@@ -83,27 +86,75 @@ void ACombatCamera::MoveToNextCamera()
 
 		if (TimelineCurve)
 		{
-			CurveFTimeline.Stop();
+			CameraTranslationCurveFTimeline.Stop();
 
 			FOnTimelineFloat TimelineProgress{};
-			TimelineProgress.BindUFunction(this, FName("TimelineValue"));
-			CurveFTimeline.AddInterpFloat(TimelineCurve, TimelineProgress);
-			CurveFTimeline.SetLooping(false);
+			TimelineProgress.BindUFunction(this, FName("CameraTranslationTimelineValue"));
+			CameraTranslationCurveFTimeline.AddInterpFloat(TimelineCurve, TimelineProgress);
+			CameraTranslationCurveFTimeline.SetLooping(false);
 
-			StartLoc = SpringArm->K2_GetComponentLocation();
-			EndLoc = PlayerActors[CurrentCameraPosition]->GetWorldCombatCameraPosition();
+			StartCameraLoc = SpringArm->K2_GetComponentLocation();
+			EndCameraLoc = PlayerActors[CurrentCameraPosition]->GetWorldCombatCameraPosition();
 
-			CurveFTimeline.PlayFromStart();
+			CurrentPlayer = PlayerActors[CurrentCameraPosition];
+
+			CameraTranslationCurveFTimeline.PlayFromStart();
+
+			CurrentCameraPosition = (CurrentCameraPosition + 1) % PlayerActors.Num();
+
 			
 		}
-		CurrentCameraPosition = (CurrentCameraPosition + 1) % PlayerActors.Num();
 
 	}
 }
 
-void ACombatCamera::TimelineValue(float val)
+void ACombatCamera::RotateCameraToNextEnemy(bool bIsInverted)
 {
-	FVector NewLocation = FMath::Lerp(StartLoc, EndLoc,val);
+
+
+
+	if (!EnemyActors.IsEmpty())
+	{
+		if (TimelineCurve)
+		{
+			CameraRotationCurveFTimeline.Stop();
+
+			CurrentCameraRotation = bIsInverted
+				? (CurrentCameraRotation - 1 + EnemyActors.Num()) % EnemyActors.Num()
+				: (CurrentCameraRotation + 1) % EnemyActors.Num();
+
+			FOnTimelineFloat TimelineProgress{};
+			TimelineProgress.BindUFunction(this, FName("CameraRotationTimelineValue"));
+			CameraRotationCurveFTimeline.AddInterpFloat(TimelineCurve, TimelineProgress);
+			CameraRotationCurveFTimeline.SetLooping(false);
+
+			StartCameraRot = Camera->K2_GetComponentLocation();
+			EndCameraRot = EnemyActors[CurrentCameraRotation]->GetActorLocation();
+
+			CameraRotationCurveFTimeline.PlayFromStart();
+
+
+
+			UE_LOG(LogTemp, Log, TEXT("Current cam rot: %d"), CurrentCameraRotation);
+		}
+		
+
+
+	}
+
+}
+
+void ACombatCamera::CameraTranslationTimelineValue(float val)
+{
+	FVector NewLocation = FMath::Lerp(StartCameraLoc, EndCameraLoc,val);
 	SpringArm->SetWorldLocation(NewLocation);
+}
+
+void ACombatCamera::CameraRotationTimelineValue(float val)
+{
+	FRotator EnemyLookAt = UKismetMathLibrary::FindLookAtRotation(StartCameraRot, EndCameraRot);
+	EnemyLookAt.Yaw = UKismetMathLibrary::Lerp(Camera->K2_GetComponentRotation().Yaw, EnemyLookAt.Yaw,val);
+	Camera->SetWorldRotation(EnemyLookAt);
+
 }
 

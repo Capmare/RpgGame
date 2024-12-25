@@ -51,6 +51,7 @@ struct FPlayerStatuses
 	TArray<EDamageTypes> ReturnDamage;
 };
 
+
 // Damage that the character will give
 USTRUCT(BlueprintType)
 struct FDealingDamage {
@@ -103,7 +104,8 @@ class RPGTURNBASEDCOMBAT_API ICameraActions
 public:
 	UFUNCTION(BlueprintCallable)
 	virtual void MoveToNextCamera() = 0;
-
+	UFUNCTION(BlueprintCallable)
+	virtual void RotateCameraToNextEnemy(bool bIsInverted) = 0;
 
 };
 

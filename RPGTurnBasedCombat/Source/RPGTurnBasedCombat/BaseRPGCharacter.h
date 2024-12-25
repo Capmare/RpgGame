@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "Combat.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "MagicBuilder.h"
 #include "BaseRPGCharacter.generated.h"
 
 
@@ -30,11 +31,20 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SetStatuses(FPlayerStatuses val) { Statuses = val; }
 
+	
+	UFUNCTION(BlueprintCallable)
+	TArray<TSubclassOf<UCombatListObject>> GetAbilities() const { return Abilities; }
+
 	FVector GetWorldCombatCameraPosition() const { return UKismetMathLibrary::TransformLocation(GetTransform(),CombatCameraPosition); }
 	bool GetIsPlayer() const { return bIsPlayerCharacter; }
 
+
+	UPROPERTY(Category = "UI",EditDefaultsOnly,BlueprintReadWrite)
+	class UAbilitiesWidget* FirstCombatWidget;
+
 	UPROPERTY(Category = "Combat_Priority", VisibleAnywhere, BlueprintReadWrite)
 	uint8 PlayerPriority{ 0 };
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -53,13 +63,14 @@ public:
 
 private:
 	EDamageTypes GetRandomTypeOfDamage();
-
 	// weapon, used only for player and not enemies
 	UPROPERTY(Category = "Weapon", EditDefaultsOnly, meta = (AllowPrivateAccess))
-	TSubclassOf<AWeapon> Weapon;
+	UWeapon* Weapon;
 	// statuses that player is affected by
 	UPROPERTY(Category = "Statuses", VisibleAnywhere, meta = (AllowPrivateAccess))
 	FPlayerStatuses Statuses;
+	UPROPERTY(Category = "Magic", EditDefaultsOnly, meta = (AllowPrivateAccess))
+	TArray<TSubclassOf<UCombatListObject>> Abilities;
 
 	UPROPERTY(Category = "Camera", EditAnywhere, meta = (AllowPrivateAccess), Meta = (MakeEditWidget = "true"))
 	FVector CombatCameraPosition;
@@ -70,20 +81,16 @@ private:
 };
 
 UCLASS()
-class RPGTURNBASEDCOMBAT_API AWeapon: public AActor
+class RPGTURNBASEDCOMBAT_API UWeapon: public USceneComponent
 {
 	GENERATED_BODY()
 
 public:
-	AWeapon();
+		
 
 protected:	
-	
-	virtual void BeginPlay() override;
-	
 	UPROPERTY(Category = "Weapon", BlueprintReadWrite, EditDefaultsOnly)
 	UStaticMeshComponent* WeaponMesh;
-
 
 private:
 

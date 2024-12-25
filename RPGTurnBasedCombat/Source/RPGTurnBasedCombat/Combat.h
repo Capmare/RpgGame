@@ -106,6 +106,10 @@ public:
 	virtual void MoveToNextCamera() = 0;
 	UFUNCTION(BlueprintCallable)
 	virtual void RotateCameraToNextEnemy(bool bIsInverted) = 0;
+	UFUNCTION(BlueprintCallable)
+	virtual void MoveCameraToWidget() = 0;
+	UFUNCTION(BlueprintCallable)
+	virtual void MoveCameraToLocationWithRotation(const FVector& NewLocation,const FVector& NewRotation) = 0;
 
 };
 

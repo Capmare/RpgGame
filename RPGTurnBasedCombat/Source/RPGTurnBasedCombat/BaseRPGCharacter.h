@@ -21,9 +21,10 @@ public:
 	// Sets default values for this character's properties
 	ABaseRPGCharacter();
 
+	void ShowAbilitiesWidget(bool bShow);
+
 	UFUNCTION(BlueprintCallable)
 	void Init(const bool bShouldGenerateRandomStat, const bool bIsPlayer);
-
 
 	UFUNCTION(BlueprintCallable)
 	FPlayerStatuses GetStatuses() const { return Statuses; }

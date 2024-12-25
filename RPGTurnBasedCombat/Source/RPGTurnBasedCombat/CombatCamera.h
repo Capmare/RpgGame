@@ -9,6 +9,8 @@
 
 #include "CombatCamera.generated.h"
 
+
+
 UCLASS()
 class RPGTURNBASEDCOMBAT_API ACombatCamera : public APawn, public ICameraActions
 {
@@ -40,11 +42,18 @@ private:
 
 	virtual void MoveToNextCamera() override;
 	virtual void RotateCameraToNextEnemy(bool bIsInverted) override;
+	virtual void MoveCameraToLocationWithRotation(const FVector& NewLocation, const FVector& NewRotation) override;
+	virtual void MoveCameraToWidget() override;
+
+
+	void RotateCamera(const FVector& NewRotation, bool bRotatesToWidget = false);
 
 	UFUNCTION()
 	void CameraTranslationTimelineValue(float val);
 	UFUNCTION()
 	void CameraRotationTimelineValue(float val);
+	UFUNCTION()
+	void OnTranslationTimelineFinished();
 
 	UPROPERTY(Category = "Camera", EditDefaultsOnly, meta = (AllowPrivateAccess = "true"))
 	class UCurveFloat* TimelineCurve;
@@ -62,6 +71,10 @@ private:
 
 	FVector StartCameraRot{};
 	FVector EndCameraRot{};
+
+	FVector WidgetRotation{};
+
+	FOnTimelineEvent TimelineFinishedEvent;
 
 	int CurrentCameraPosition{};
 	int CurrentCameraRotation{};

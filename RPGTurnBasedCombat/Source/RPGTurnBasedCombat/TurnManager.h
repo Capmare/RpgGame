@@ -6,7 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "TurnManager.generated.h"
 
-
+UENUM(BlueprintType)
 enum class ECurrentTurn : uint8 {
 	Player, Enemy
 };
@@ -35,5 +35,6 @@ public:
 private:
 	class ACombatCamera* CombatCamera;
 
+	void Init();
 
 };

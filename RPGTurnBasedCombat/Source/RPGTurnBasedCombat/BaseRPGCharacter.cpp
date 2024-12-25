@@ -20,7 +20,15 @@ ABaseRPGCharacter::ABaseRPGCharacter()
 
 	FirstCombatWidget->SetupAttachment(RootComponent);
 
-	
+	//FirstCombatWidget->GetWidget()->SetVisibility(ESlateVisibility::Hidden);
+
+}
+
+void ABaseRPGCharacter::ShowAbilitiesWidget(bool bShow)
+{
+	FirstCombatWidget->SetVisibility(bShow);
+
+
 
 }
 
@@ -35,6 +43,8 @@ void ABaseRPGCharacter::Init(const bool bShouldGenerateRandomStat, const bool bI
 	}
 
 	bIsPlayerCharacter = bIsPlayer;
+	ShowAbilitiesWidget(false);
+
 }
 
 // Called when the game starts or when spawned
@@ -48,7 +58,6 @@ void ABaseRPGCharacter::BeginPlay()
 	{
 		IUpdateUIInterface->Execute_RefreshObjects(Widget, Abilities);
 	}
-	
 	
 }
 

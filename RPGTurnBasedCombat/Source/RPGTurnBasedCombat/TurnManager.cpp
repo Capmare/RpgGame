@@ -2,7 +2,10 @@
 
 
 #include "TurnManager.h"
+#include "BaseRPGCharacter.h"
 #include "CombatCamera.h"
+#include "Engine/World.h"
+#include "Combat.h"
 
 // Sets default values
 ATurnManager::ATurnManager()
@@ -25,10 +28,11 @@ void ATurnManager::BeginPlay()
 		return;
 	}
 
+	//
+	FTimerHandle Handle;
+	GetWorld()->GetTimerManager().SetTimer(Handle,this, &ATurnManager::Init, .5f,false);
 
-	//Move camera to UI attack type choosing position, for now only magic
-
-
+	//GetWorldTimerManager().ClearTimer(Handle);
 	
 
 }
@@ -37,6 +41,19 @@ void ATurnManager::BeginPlay()
 void ATurnManager::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+}
+
+void ATurnManager::Init()
+{
+	// Enable UI
+	CombatCamera->GetCurrentPlayer()->ShowAbilitiesWidget(true);
+
+	// Move camera to UI attack type choosing position, for now only magic
+	if (ICameraActions* CameraActionInterface = Cast<ICameraActions>(CombatCamera))
+	{
+		CameraActionInterface->MoveCameraToWidget();
+	}
 
 }
 

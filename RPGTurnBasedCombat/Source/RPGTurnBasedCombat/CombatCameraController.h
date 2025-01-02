@@ -19,6 +19,11 @@ class RPGTURNBASEDCOMBAT_API ACombatCameraController : public APlayerController
 public:
 	virtual void SetupInputComponent() override;
 
+	UFUNCTION(BlueprintCallable)
+	bool GetCanConsumeInput() const { return bCanConsumeInput; }
+	UFUNCTION(BlueprintCallable)
+	void SetCanConsumeInput(bool val) { bCanConsumeInput = val; }
+
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputMappingContext* DefaultMappingContext;
 	
@@ -34,15 +39,26 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* MoveListDownAction;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* SelectAttackAction;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* ConfirmEnemyAction;
+
+
 private:
+	// KEYBOARD
 	void NextCharacter();
 	void PreviousCharacter();
 	void MoveListSelectionDown();
 	void MoveListSelectionUp();
+	void SelectAttack();
+	void ConfirmEnemy();
 
 	APawn* Pawn;
+	class ATurnManager* TurnManager;
 
-
-	
+	bool bCanConsumeInput{ true };
+	bool bSelectsAbility{ true };
 
 };

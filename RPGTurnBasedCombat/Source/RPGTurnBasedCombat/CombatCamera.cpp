@@ -7,6 +7,8 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "AbilitiesWidget.h"
 #include "Camera/CameraComponent.h"
+#include "CameraWayPoint.h"
+#include "BaseRPGCharacterEnemy.h"
 
 
 // Sets default values
@@ -32,6 +34,7 @@ void ACombatCamera::BeginPlay()
 	// use sorted map to skip manually sorting
 	TSortedMap<uint8,ABaseRPGCharacter*> SortedCharacters;
 
+	// get all characters
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABaseRPGCharacter::StaticClass(), FoundActors);
 	
 	
@@ -64,6 +67,26 @@ void ACombatCamera::BeginPlay()
 		RotateCameraToNextEnemy(false);
 		CurrentPlayer = PlayerActors[0];
 	}
+
+	// Get camera positions
+	FoundActors.Empty();
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ACameraWayPoint::StaticClass(), FoundActors);
+	for (int Iterator{}; Iterator < FoundActors.Num(); ++Iterator)
+	{
+		auto CameraWaypoint = Cast<ACameraWayPoint>(FoundActors[Iterator]);
+		switch (CameraWaypoint->CameraLocation)
+		{
+		case ECameraLocation::EnemyAttacking:
+			EnemyAttackingWaypoint = CameraWaypoint;
+			break;
+		case ECameraLocation::EnemySelection:
+			EnemySelectionWaypoint = CameraWaypoint;
+			break;
+		case ECameraLocation::PlayerAttacking:
+			PlayerAttackingWaypoint = CameraWaypoint;
+			break;
+		}
+	}
 }
 
 // Called every frame
@@ -84,7 +107,6 @@ void ACombatCamera::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 }
 
 
-// FROM HERE
 void ACombatCamera::MoveToNextCamera()
 {
 	if (!PlayerActors.IsEmpty()) {
@@ -112,15 +134,12 @@ void ACombatCamera::MoveToNextCamera()
 			CameraTranslationCurveFTimeline.PlayFromStart();
 
 			CurrentCameraPosition = (CurrentCameraPosition + 1) % PlayerActors.Num();
-
-			
-
 		}
 
 	}
 }
 
-void ACombatCamera::RotateCameraToNextEnemy(bool bIsInverted)
+void ACombatCamera::RotateCameraToNextEnemy(bool bIsInverted /*= false*/)
 {
 	if (!EnemyActors.IsEmpty())
 	{
@@ -131,7 +150,7 @@ void ACombatCamera::RotateCameraToNextEnemy(bool bIsInverted)
 			CurrentCameraRotation = bIsInverted
 				? (CurrentCameraRotation - 1 + EnemyActors.Num()) % EnemyActors.Num()
 				: (CurrentCameraRotation + 1) % EnemyActors.Num();
-
+			CurrentEnemy = EnemyActors[CurrentCameraRotation];
 			RotateCamera(EnemyActors[CurrentCameraRotation]->GetActorLocation());
 			
 			UE_LOG(LogTemp, Log, TEXT("Current cam rot: %d"), CurrentCameraRotation);
@@ -200,7 +219,18 @@ void ACombatCamera::RotateCamera(const FVector& NewRotation, bool bRotatesToWidg
 	}
 }
 
-// TO HERE SHOULD BE REFACTORED
+void ACombatCamera::NextEnemy()
+{
+	CurrentEnemyIndex = (CurrentEnemyIndex + 1) % EnemyActors.Num();
+	CurrentEnemy = EnemyActors[CurrentEnemyIndex];
+	if (ABaseRPGCharacterEnemy* Enemy = Cast<ABaseRPGCharacterEnemy>(CurrentEnemy))
+	{
+		Enemy->GetAllAlivePlayers(PlayerActors);
+	}
+
+}
+
+
 
 void ACombatCamera::CameraTranslationTimelineValue(float val)
 {

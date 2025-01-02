@@ -9,7 +9,7 @@
 
 #include "CombatCamera.generated.h"
 
-
+class ACameraWayPoint;
 
 UCLASS()
 class RPGTURNBASEDCOMBAT_API ACombatCamera : public APawn, public ICameraActions
@@ -20,7 +20,11 @@ public:
 	// Sets default values for this pawn's properties
 	ACombatCamera();
 
+	UFUNCTION(BlueprintCallable)
 	class ABaseRPGCharacter* GetCurrentPlayer() const { return CurrentPlayer; }
+	UFUNCTION(BlueprintCallable)
+	class ABaseRPGCharacter* GetCurrentEnemy() const { return CurrentEnemy; }
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -37,16 +41,17 @@ public:
 	UPROPERTY(Category = "Camera", VisibleAnywhere, BlueprintReadWrite)
 	class UCameraComponent* Camera;
 
+	ACameraWayPoint* GetEnemySelectionWaypoint() const { return EnemySelectionWaypoint; }
+	ACameraWayPoint* GetEnemyAttackingWaypoint() const { return EnemyAttackingWaypoint; }
+	ACameraWayPoint* GetPlayerAttackingWaypoint() const { return PlayerAttackingWaypoint; }
+
+	void NextEnemy();
 
 private:
-
 	virtual void MoveToNextCamera() override;
-	virtual void RotateCameraToNextEnemy(bool bIsInverted) override;
+	virtual void RotateCameraToNextEnemy(bool bIsInverted = false) override;
 	virtual void MoveCameraToLocationWithRotation(const FVector& NewLocation, const FVector& NewRotation) override;
 	virtual void MoveCameraToWidget() override;
-
-
-	void RotateCamera(const FVector& NewRotation, bool bRotatesToWidget = false);
 
 	UFUNCTION()
 	void CameraTranslationTimelineValue(float val);
@@ -55,13 +60,21 @@ private:
 	UFUNCTION()
 	void OnTranslationTimelineFinished();
 
+	void RotateCamera(const FVector& NewRotation, bool bRotatesToWidget = false);
+
 	UPROPERTY(Category = "Camera", EditDefaultsOnly, meta = (AllowPrivateAccess = "true"))
 	class UCurveFloat* TimelineCurve;
 
 	TArray<class ABaseRPGCharacter*> PlayerActors;
 	TArray<class ABaseRPGCharacter*> EnemyActors;
 
-	class ABaseRPGCharacter* CurrentPlayer;
+
+	class ABaseRPGCharacter* CurrentPlayer{};
+	class ABaseRPGCharacter* CurrentEnemy{};
+
+	ACameraWayPoint* EnemySelectionWaypoint{};
+	ACameraWayPoint* EnemyAttackingWaypoint{};
+	ACameraWayPoint* PlayerAttackingWaypoint{};
 
 	FTimeline CameraTranslationCurveFTimeline;
 	FTimeline CameraRotationCurveFTimeline;
@@ -77,5 +90,6 @@ private:
 	FOnTimelineEvent TimelineFinishedEvent;
 
 	int CurrentCameraPosition{};
-	int CurrentCameraRotation{};
+	int CurrentCameraRotation{1}; // start with index one so it avoids rotating the camera once moving to select enemy location
+	int CurrentEnemyIndex{};
 };

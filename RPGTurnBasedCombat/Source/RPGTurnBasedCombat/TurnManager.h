@@ -11,6 +11,15 @@ enum class ECurrentTurn : uint8 {
 	Player, Enemy
 };
 
+UENUM(BlueprintType)
+enum class ETurnState : uint8 {
+	AbilitySelection,
+	TargetSelection,
+	SpectatePlayerAttack,
+	EnemyTargetSelection,
+	EnemyAttackSelection,
+	SpectateEnemyAttack
+};
 
 UCLASS()
 class RPGTURNBASEDCOMBAT_API ATurnManager : public AActor
@@ -31,10 +40,18 @@ public:
 
 	UPROPERTY(BlueprintReadOnly,VisibleAnywhere)
 	ECurrentTurn CurrentTurn;
+	UPROPERTY(BlueprintReadOnly,VisibleAnywhere)
+	ETurnState CurrentTurnState;
 
+	UPROPERTY(BlueprintReadOnly,VisibleAnywhere)
+	int TurnsLeft{3};
+
+	void InitPlayer();
+	void InitEnemy();
 private:
 	class ACombatCamera* CombatCamera;
 
-	void Init();
 
+public:
+	class ACombatCamera* GetCombatCamera() const { return CombatCamera; }
 };

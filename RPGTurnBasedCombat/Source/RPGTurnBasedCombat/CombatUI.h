@@ -20,4 +20,6 @@ public:
 	void NavigateDown();
 	UFUNCTION(BlueprintCallable,BlueprintImplementableEvent)
 	void NavigateUp();
+	UFUNCTION(BlueprintCallable,BlueprintImplementableEvent)
+	void SelectAttack();
 };

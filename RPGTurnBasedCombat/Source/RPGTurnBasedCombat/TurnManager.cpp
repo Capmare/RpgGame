@@ -6,6 +6,9 @@
 #include "CombatCamera.h"
 #include "Engine/World.h"
 #include "Combat.h"
+#include "BaseRPGCharacterEnemy.h"
+
+
 
 // Sets default values
 ATurnManager::ATurnManager()
@@ -30,10 +33,7 @@ void ATurnManager::BeginPlay()
 
 	//
 	FTimerHandle Handle;
-	GetWorld()->GetTimerManager().SetTimer(Handle,this, &ATurnManager::Init, .5f,false);
-
-	//GetWorldTimerManager().ClearTimer(Handle);
-	
+	GetWorld()->GetTimerManager().SetTimer(Handle,this, &ATurnManager::InitPlayer, .5f,false);
 
 }
 
@@ -44,7 +44,7 @@ void ATurnManager::Tick(float DeltaTime)
 
 }
 
-void ATurnManager::Init()
+void ATurnManager::InitPlayer()
 {
 	// Enable UI
 	CombatCamera->GetCurrentPlayer()->ShowAbilitiesWidget(true);
@@ -52,7 +52,20 @@ void ATurnManager::Init()
 	// Move camera to UI attack type choosing position, for now only magic
 	if (ICameraActions* CameraActionInterface = Cast<ICameraActions>(CombatCamera))
 	{
-		CameraActionInterface->MoveCameraToWidget();
+		CurrentTurnState = ETurnState::AbilitySelection;
+		CameraActionInterface->MoveToNextCamera();
+	}
+
+}
+
+void ATurnManager::InitEnemy()
+{
+	CombatCamera->NextEnemy();
+	if (ABaseRPGCharacterEnemy* CurrentEnemy = Cast<ABaseRPGCharacterEnemy>(CombatCamera->GetCurrentEnemy()))
+	{
+		CurrentEnemy->GetLowestHealthPlayer();
+		CurrentEnemy->CheckAgainstCritical();
+		CurrentEnemy->AttackLowesHealthPlayer();
 	}
 
 }

@@ -50,32 +50,47 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	UPROPERTY(Category = "Statuses", VisibleAnywhere, meta = (AllowPrivateAccess))
+	FPlayerStatuses Statuses;
+	UPROPERTY(Category = "Magic", EditDefaultsOnly, meta = (AllowPrivateAccess))
+	TArray<TSubclassOf<UCombatListObject>> Abilities;
 
+	FDealingDamage CurrentDealingDamage{};
 
+	UPROPERTY(Category = "Damage", EditDefaultsOnly, meta = (AllowPrivateAccess))
+	UAnimMontage* DamagedAnim;
 public:	
 	UFUNCTION(BlueprintCallable)
-	virtual void DealDamage(FDealingDamage ReceivedDamage) override;
-
+	virtual void DealDamage(FDealingDamage ReceivedDamage, class ABaseRPGCharacter* Damager, bool bIsReturnedOnce = false) override;
+	UFUNCTION(BlueprintCallable)
+	virtual void ExecuteAttack(class ABaseRPGCharacter* Damaged, class ATurnManager* TurnManager) override;
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	UFUNCTION(BlueprintCallable)
+	void SetCurrentDealingDamage(FDealingDamage val) { CurrentDealingDamage = val; }
+
+	UPROPERTY(Category = "Combat_UI", VisibleAnywhere, BlueprintReadWrite)
+	UCombatListObject* CurrentAbility{};
+
 private:
+
+	void AfterDealDamageDelay(class ATurnManager* TurnManager);
+
 	EDamageTypes GetRandomTypeOfDamage();
 	// weapon, used only for player and not enemies
 	UPROPERTY(Category = "Weapon", EditDefaultsOnly, meta = (AllowPrivateAccess))
 	UWeapon* Weapon;
-	// statuses that player is affected by
-	UPROPERTY(Category = "Statuses", VisibleAnywhere, meta = (AllowPrivateAccess))
-	FPlayerStatuses Statuses;
-	UPROPERTY(Category = "Magic", EditDefaultsOnly, meta = (AllowPrivateAccess))
-	TArray<TSubclassOf<UCombatListObject>> Abilities;
+
+
+
+
 
 	UPROPERTY(Category = "Camera", EditAnywhere, meta = (AllowPrivateAccess), Meta = (MakeEditWidget = "true"))
 	FVector CombatCameraPosition;
-
 
 
 	bool bIsPlayerCharacter{ false };

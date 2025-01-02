@@ -49,6 +49,41 @@ struct FPlayerStatuses
 	
 	UPROPERTY(Category = "Weaknesses", VisibleAnywhere, BlueprintReadWrite)
 	TArray<EDamageTypes> ReturnDamage;
+
+
+	bool CheckCritical(const EDamageTypes& DamageType)
+	{
+		for (EDamageTypes Damage : CriticalDamage)
+		{
+			if (Damage == DamageType) return true;
+		}
+		return false;
+	};
+	bool CheckNullify(const EDamageTypes& DamageType)
+	{
+		for (EDamageTypes Damage : NullifyDamage)
+		{
+			if (Damage == DamageType) return true;
+		}
+		return false;
+	};
+	bool CheckWeak(const EDamageTypes& DamageType)
+	{
+		for (EDamageTypes Damage : WeakDamage)
+		{
+			if (Damage == DamageType) return true;
+		}
+		return false;
+	};
+	bool CheckReturn(const EDamageTypes& DamageType)
+	{
+		for (EDamageTypes Damage : ReturnDamage)
+		{
+			if (Damage == DamageType) return true;
+		}
+		return false;
+	};
+
 };
 
 
@@ -82,8 +117,9 @@ class RPGTURNBASEDCOMBAT_API ICombat
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
 	UFUNCTION(BlueprintCallable)
-	virtual void DealDamage(struct FDealingDamage ReceivedDamage) = 0;
-
+	virtual void DealDamage(FDealingDamage ReceivedDamage, class ABaseRPGCharacter* Damager, bool bIsReturnedOnce = false) = 0;
+	UFUNCTION(BlueprintCallable)
+	virtual void ExecuteAttack(class ABaseRPGCharacter* Damaged, class ATurnManager* TurnManager) = 0;
 
 };
 
@@ -105,12 +141,10 @@ public:
 	UFUNCTION(BlueprintCallable)
 	virtual void MoveToNextCamera() = 0;
 	UFUNCTION(BlueprintCallable)
-	virtual void RotateCameraToNextEnemy(bool bIsInverted) = 0;
+	virtual void RotateCameraToNextEnemy(bool bIsInverted = false) = 0;
 	UFUNCTION(BlueprintCallable)
 	virtual void MoveCameraToWidget() = 0;
 	UFUNCTION(BlueprintCallable)
 	virtual void MoveCameraToLocationWithRotation(const FVector& NewLocation,const FVector& NewRotation) = 0;
 
 };
-
-	

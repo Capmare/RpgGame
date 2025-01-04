@@ -75,6 +75,8 @@ public:
 	void OnGameEndCheck();
 
 	void CheckGameEnded();
+
+	void MoveCameraToEnemySpectate();
 private:
 	virtual void MoveToNextCamera() override;
 	virtual void RotateCameraToNextEnemy(bool bIsInverted = false) override;

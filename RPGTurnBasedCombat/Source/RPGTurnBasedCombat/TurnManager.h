@@ -48,6 +48,10 @@ public:
 
 	void InitPlayer();
 	void InitEnemy();
+
+
+	UPROPERTY(BlueprintReadWrite,EditAnywhere)
+	bool bPlayerStarts{false};
 private:
 	class ACombatCamera* CombatCamera;
 

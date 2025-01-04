@@ -32,9 +32,17 @@ void ATurnManager::BeginPlay()
 		return;
 	}
 
-	//
-	FTimerHandle Handle;
-	GetWorld()->GetTimerManager().SetTimer(Handle,this, &ATurnManager::InitPlayer, .5f,false);
+	if (bPlayerStarts)
+	{
+		FTimerHandle Handle;
+		GetWorld()->GetTimerManager().SetTimer(Handle, this, &ATurnManager::InitPlayer, .5f, false);
+	}
+	else
+	{
+		FTimerHandle Handle;
+		GetWorld()->GetTimerManager().SetTimer(Handle, this, &ATurnManager::InitEnemy, .5f, false);
+	}
+	
 
 }
 
@@ -66,6 +74,7 @@ void ATurnManager::InitPlayer()
 
 void ATurnManager::InitEnemy()
 {
+	CombatCamera->MoveCameraToEnemySpectate();
 	CombatCamera->CheckGameEnded();
 	CombatCamera->OnGameEndCheck();
 

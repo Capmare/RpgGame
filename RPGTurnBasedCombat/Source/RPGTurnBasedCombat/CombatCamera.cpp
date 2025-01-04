@@ -240,6 +240,12 @@ void ACombatCamera::CheckGameEnded()
 	}
 }
 
+void ACombatCamera::MoveCameraToEnemySpectate()
+{
+	MoveCameraToLocationWithRotation(GetEnemyAttackingWaypoint()->GetWorldCombatCameraPosition(), GetEnemyAttackingWaypoint()->CameraLookAt);
+
+}
+
 void ACombatCamera::RotateCamera(const FVector& NewRotation, bool bRotatesToWidget /*= false*/)
 {
 	if (TimelineCurve)

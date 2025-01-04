@@ -32,7 +32,12 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SetStatuses(FPlayerStatuses val) { Statuses = val; }
 
-	
+	UFUNCTION(BlueprintCallable)
+	void AddAbility(TSubclassOf<UCombatListObject> NewAbility) { Abilities.Add(NewAbility); }
+	UFUNCTION(BlueprintCallable)
+	void RemoveAllAbilities() { Abilities.Empty(); }
+	UFUNCTION(BlueprintCallable)
+	void RemoveFirstAbility() { Abilities.RemoveAt(0); }
 	UFUNCTION(BlueprintCallable)
 	TArray<TSubclassOf<UCombatListObject>> GetAbilities() const { return Abilities; }
 
@@ -52,7 +57,7 @@ protected:
 
 	UPROPERTY(Category = "Statuses", VisibleAnywhere, meta = (AllowPrivateAccess))
 	FPlayerStatuses Statuses;
-	UPROPERTY(Category = "Magic", EditDefaultsOnly, meta = (AllowPrivateAccess))
+	UPROPERTY(Category = "Magic", EditDefaultsOnly, BlueprintReadWrite,meta = (AllowPrivateAccess))
 	TArray<TSubclassOf<UCombatListObject>> Abilities;
 
 	FDealingDamage CurrentDealingDamage{};

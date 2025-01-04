@@ -26,7 +26,7 @@ struct FMagicAbility {
 	UPROPERTY(Category = "VFX", BlueprintReadWrite, EditAnywhere)
 	UNiagaraSystem* VFX;
 	UPROPERTY(Category = "Damage", BlueprintReadWrite, EditAnywhere)
-	UImage* MagicIcon;
+	FLinearColor MagicColor;
 
 };
 

@@ -25,6 +25,14 @@ public:
 	void AttackLowesHealthPlayer();
 	// this will get the player character health, possible critical damage received and current enemy health
 	void CalculateRunAwayChance(); 
+
+	void ShowInfoWidget(bool bShow);
+
+	UPROPERTY(Category = "UI",EditDefaultsOnly,BlueprintReadWrite)
+	class UWeaknessInfoWidget* WeaknessWidget;
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void UpdateWeaknesses();
 private:
 	void CheckArrayOfDamages(const TArray<EDamageTypes>& DamagesArray, EDamageTypes& DamageMatch);
 	void NextTurn();

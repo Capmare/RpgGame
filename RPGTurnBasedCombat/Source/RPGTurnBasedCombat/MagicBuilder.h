@@ -7,6 +7,7 @@
 #include "Combat.h"
 #include "Animation/AnimMontage.h"
 #include "Components/Image.h"
+#include "NiagaraComponent.h"
 #include "MagicBuilder.generated.h"
 
 USTRUCT(BlueprintType)
@@ -22,6 +23,8 @@ struct FMagicAbility {
 	EDamageTypes DamageType;
 	UPROPERTY(Category = "Damage", BlueprintReadWrite, EditAnywhere)
 	float AmmountOfDamage{0};
+	UPROPERTY(Category = "VFX", BlueprintReadWrite, EditAnywhere)
+	UNiagaraSystem* VFX;
 	UPROPERTY(Category = "Damage", BlueprintReadWrite, EditAnywhere)
 	UImage* MagicIcon;
 

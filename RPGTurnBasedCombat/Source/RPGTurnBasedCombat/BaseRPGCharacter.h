@@ -59,6 +59,8 @@ protected:
 
 	UPROPERTY(Category = "Damage", EditDefaultsOnly, meta = (AllowPrivateAccess))
 	UAnimMontage* DamagedAnim;
+
+
 public:	
 	UFUNCTION(BlueprintCallable)
 	virtual void DealDamage(FDealingDamage ReceivedDamage, class ABaseRPGCharacter* Damager, bool bIsReturnedOnce = false) override;
@@ -76,18 +78,14 @@ public:
 	UPROPERTY(Category = "Combat_UI", VisibleAnywhere, BlueprintReadWrite)
 	UCombatListObject* CurrentAbility{};
 
+
 private:
 
 	void AfterDealDamageDelay(class ATurnManager* TurnManager);
 
-	EDamageTypes GetRandomTypeOfDamage();
 	// weapon, used only for player and not enemies
 	UPROPERTY(Category = "Weapon", EditDefaultsOnly, meta = (AllowPrivateAccess))
 	UWeapon* Weapon;
-
-
-
-
 
 	UPROPERTY(Category = "Camera", EditAnywhere, meta = (AllowPrivateAccess), Meta = (MakeEditWidget = "true"))
 	FVector CombatCameraPosition;

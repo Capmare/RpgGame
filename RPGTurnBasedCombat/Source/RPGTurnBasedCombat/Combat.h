@@ -32,7 +32,7 @@ struct FPlayerStatuses
 {
 	GENERATED_USTRUCT_BODY()
 
-	UPROPERTY(Category = "Values", BlueprintReadWrite, EditDefaultsOnly)
+	UPROPERTY(Category = "Values", VisibleAnywhere,BlueprintReadWrite)
 	float Health{100};
 	UPROPERTY(Category = "Magic", BlueprintReadOnly, VisibleDefaultsOnly)
 	FMagicStatus CurrentMagicStatus{};
@@ -146,5 +146,6 @@ public:
 	virtual void MoveCameraToWidget() = 0;
 	UFUNCTION(BlueprintCallable)
 	virtual void MoveCameraToLocationWithRotation(const FVector& NewLocation,const FVector& NewRotation) = 0;
-
+	UFUNCTION(BlueprintCallable)
+	virtual void RotateCameraToCurrentEnemy() = 0;
 };

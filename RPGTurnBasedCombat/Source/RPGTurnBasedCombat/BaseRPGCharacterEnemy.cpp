@@ -6,16 +6,22 @@
 #include "Kismet/GameplayStatics.h"
 #include "CombatCamera.h"
 #include "TurnManager.h"
+#include "WeaknessInfoWidget.h"
+#include "CombatCamera.h"
 
 ABaseRPGCharacterEnemy::ABaseRPGCharacterEnemy()
 {
-	Init(true, false);
+	//Init(true, false);
 	TArray<AActor*> FoundActors;
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ATurnManager::StaticClass(), FoundActors);
 	if (!FoundActors.IsEmpty())
 	{
 		TurnManager = Cast<ATurnManager>(FoundActors[0]);
 	}
+
+
+	WeaknessWidget = CreateDefaultSubobject<UWeaknessInfoWidget>(TEXT("WeaknessWidget"));
+	WeaknessWidget->SetupAttachment(RootComponent);
 
 }
 
@@ -33,6 +39,7 @@ void ABaseRPGCharacterEnemy::GetAllAlivePlayers(TArray<ABaseRPGCharacter*> val)
 ///////////////////			This functions should happen in order			///////////////////
 void ABaseRPGCharacterEnemy::GetLowestHealthPlayer()
 {
+	GetAllAlivePlayers(TurnManager->GetCombatCamera()->GetPlayerActors());
 	if (!AlivePlayers.IsEmpty())
 	{
 		CurrentTarget = AlivePlayers[0];
@@ -92,7 +99,17 @@ void ABaseRPGCharacterEnemy::AttackLowesHealthPlayer()
 
 void ABaseRPGCharacterEnemy::NextTurn()
 {
-	TurnManager->GetCombatCamera()->NextEnemy();
+	if (!TurnManager->GetCombatCamera()->ListOfIgnoredActors.IsEmpty())
+	{
+		for (ABaseRPGCharacter* actor : TurnManager->GetCombatCamera()->ListOfIgnoredActors)
+		{
+			actor->Destroy();
+		}
+		TurnManager->GetCombatCamera()->ListOfIgnoredActors.Empty();
+	}
+	
+	TurnManager->GetCombatCamera()->UpdatePlayersAndEnemies(false);
+	//TurnManager->GetCombatCamera()->RotateCameraToCurrentEnemy();
 	--TurnManager->TurnsLeft;
 	if (TurnManager->TurnsLeft > 0)
 	{
@@ -102,13 +119,10 @@ void ABaseRPGCharacterEnemy::NextTurn()
 			CurrentEnemy->CheckAgainstCritical();
 			CurrentEnemy->AttackLowesHealthPlayer();
 		}
-
-
 	}
 	else
 	{
 
-		TurnManager->TurnsLeft = 3;
 		TurnManager->InitPlayer();
 		TurnManager->CurrentTurnState = ETurnState::AbilitySelection;
 	}
@@ -127,6 +141,16 @@ void ABaseRPGCharacterEnemy::CalculateRunAwayChance()
 {
 
 }
+
+void ABaseRPGCharacterEnemy::ShowInfoWidget(bool bShow)
+{
+	if (WeaknessWidget)
+	{
+		WeaknessWidget->SetVisibility(bShow);
+	}
+}
+
+
 
 void ABaseRPGCharacterEnemy::CheckArrayOfDamages(const TArray<EDamageTypes>& DamagesArray, EDamageTypes& DamageMatch)
 {

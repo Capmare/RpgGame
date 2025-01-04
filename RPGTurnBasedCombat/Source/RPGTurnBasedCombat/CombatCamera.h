@@ -11,6 +11,18 @@
 
 class ACameraWayPoint;
 
+
+USTRUCT(BlueprintType)
+struct FEndGameCondition 
+{
+	GENERATED_USTRUCT_BODY()
+
+	UPROPERTY(Category = "Condition", VisibleAnywhere, BlueprintReadWrite)
+	bool bPlayerWon;
+	UPROPERTY(Category = "Condition", VisibleAnywhere, BlueprintReadWrite)
+	bool bGameEnded;
+};
+
 UCLASS()
 class RPGTURNBASEDCOMBAT_API ACombatCamera : public APawn, public ICameraActions
 {
@@ -25,6 +37,10 @@ public:
 	UFUNCTION(BlueprintCallable)
 	class ABaseRPGCharacter* GetCurrentEnemy() const { return CurrentEnemy; }
 
+	int GetEnemyActorsNum() const { return EnemyActors.Num(); }
+	int GetPlayerActorsNum() const { return PlayerActors.Num(); }
+	TArray<class ABaseRPGCharacter*> GetEnemyActors() const { return EnemyActors; }
+	TArray<class ABaseRPGCharacter*> GetPlayerActors() const { return PlayerActors; }
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -47,6 +63,18 @@ public:
 
 	void NextEnemy();
 
+	virtual void RotateCameraToCurrentEnemy() override;
+
+	TArray<ABaseRPGCharacter*> ListOfIgnoredActors;
+	void UpdatePlayersAndEnemies(bool bShouldRotate = true);
+
+	UPROPERTY(Category = "GAME_END", VisibleAnywhere, BlueprintReadWrite)
+	FEndGameCondition EndGame;
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnGameEndCheck();
+
+	void CheckGameEnded();
 private:
 	virtual void MoveToNextCamera() override;
 	virtual void RotateCameraToNextEnemy(bool bIsInverted = false) override;

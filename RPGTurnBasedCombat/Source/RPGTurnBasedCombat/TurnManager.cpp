@@ -7,6 +7,7 @@
 #include "Engine/World.h"
 #include "Combat.h"
 #include "BaseRPGCharacterEnemy.h"
+#include "CombatCameraController.h"
 
 
 
@@ -47,7 +48,11 @@ void ATurnManager::Tick(float DeltaTime)
 void ATurnManager::InitPlayer()
 {
 	// Enable UI
+	CombatCamera->CheckGameEnded();
+	CombatCamera->OnGameEndCheck();
+	CombatCamera->UpdatePlayersAndEnemies();
 	CombatCamera->GetCurrentPlayer()->ShowAbilitiesWidget(true);
+	TurnsLeft = CombatCamera->GetPlayerActorsNum();
 
 	// Move camera to UI attack type choosing position, for now only magic
 	if (ICameraActions* CameraActionInterface = Cast<ICameraActions>(CombatCamera))
@@ -55,12 +60,19 @@ void ATurnManager::InitPlayer()
 		CurrentTurnState = ETurnState::AbilitySelection;
 		CameraActionInterface->MoveToNextCamera();
 	}
+	CombatCamera->RotateCameraToCurrentEnemy();
 
 }
 
 void ATurnManager::InitEnemy()
 {
+	CombatCamera->CheckGameEnded();
+	CombatCamera->OnGameEndCheck();
+
+	CombatCamera->UpdatePlayersAndEnemies();
 	CombatCamera->NextEnemy();
+	TurnsLeft = CombatCamera->GetEnemyActorsNum();
+
 	if (ABaseRPGCharacterEnemy* CurrentEnemy = Cast<ABaseRPGCharacterEnemy>(CombatCamera->GetCurrentEnemy()))
 	{
 		CurrentEnemy->GetLowestHealthPlayer();

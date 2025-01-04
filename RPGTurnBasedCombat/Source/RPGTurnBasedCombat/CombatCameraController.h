@@ -45,6 +45,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* ConfirmEnemyAction;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* OpenWeaknessInfo;
 
 private:
 	// KEYBOARD
@@ -54,6 +56,8 @@ private:
 	void MoveListSelectionUp();
 	void SelectAttack();
 	void ConfirmEnemy();
+	void OpenWeaknessInfoTab();
+	void CloseWeaknessInfoTab();
 
 	APawn* Pawn;
 	class ATurnManager* TurnManager;

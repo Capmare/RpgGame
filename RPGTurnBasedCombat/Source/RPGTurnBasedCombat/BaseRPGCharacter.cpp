@@ -10,6 +10,7 @@
 #include "TurnManager.h"
 #include "CombatCamera.h"
 #include "CameraWayPoint.h"
+#include "../../FX/Niagara/Source/Niagara/Public/NiagaraFunctionLibrary.h"
 
 // Sets default values
 ABaseRPGCharacter::ABaseRPGCharacter()
@@ -29,21 +30,49 @@ ABaseRPGCharacter::ABaseRPGCharacter()
 
 void ABaseRPGCharacter::ShowAbilitiesWidget(bool bShow)
 {
-	FirstCombatWidget->SetVisibility(bShow);
+	if (FirstCombatWidget)
+	{
+		FirstCombatWidget->SetVisibility(bShow);
+	}
 }
 
 void ABaseRPGCharacter::Init(const bool bShouldGenerateRandomStat, const bool bIsPlayer)
 {
 	if (bShouldGenerateRandomStat)
 	{
-		Statuses.CriticalDamage.Add(GetRandomTypeOfDamage());
-		Statuses.NullifyDamage.Add(GetRandomTypeOfDamage());
-		Statuses.ReturnDamage.Add(GetRandomTypeOfDamage());
-		Statuses.WeakDamage.Add(GetRandomTypeOfDamage());
+		Statuses.CriticalDamage.Empty();
+		Statuses.NullifyDamage.Empty();
+		Statuses.ReturnDamage.Empty();
+		Statuses.WeakDamage.Empty();
+
+		TArray<EDamageTypes> StackSize = {EDamageTypes::BLOOD,EDamageTypes::WIND,EDamageTypes::FIRE,EDamageTypes::MYSTIC,EDamageTypes::ELECTRICITY};
+		int dmgIdx = UKismetMathLibrary::RandomInteger(StackSize.Num());
+		EDamageTypes CriticalDamage = StackSize[dmgIdx];
+		StackSize.RemoveAt(dmgIdx);
+
+		dmgIdx = UKismetMathLibrary::RandomInteger(StackSize.Num());
+		EDamageTypes NullifyDamage = StackSize[dmgIdx];
+		StackSize.RemoveAt(dmgIdx);
+
+		dmgIdx = UKismetMathLibrary::RandomInteger(StackSize.Num());
+		EDamageTypes ReturnDamage = StackSize[dmgIdx];
+		StackSize.RemoveAt(dmgIdx);
+
+		dmgIdx = UKismetMathLibrary::RandomInteger(StackSize.Num());
+		EDamageTypes WeakDamage = StackSize[dmgIdx];
+		StackSize.RemoveAt(dmgIdx);
+
+		Statuses.CriticalDamage.Add(CriticalDamage);
+		Statuses.NullifyDamage.Add(NullifyDamage);
+		Statuses.ReturnDamage.Add(ReturnDamage);
+		Statuses.WeakDamage.Add(WeakDamage);
 	}
 
 	bIsPlayerCharacter = bIsPlayer;
-	ShowAbilitiesWidget(false);
+	if (!bIsPlayer)
+	{
+		ShowAbilitiesWidget(false);
+	}
 
 }
 
@@ -95,56 +124,64 @@ void ABaseRPGCharacter::AfterDealDamageDelay(class ATurnManager* TurnManager)
 		CameraActionInterface->MoveCameraToLocationWithRotation(CombatCamera->GetEnemyAttackingWaypoint()->GetWorldCombatCameraPosition(), CombatCamera->GetEnemyAttackingWaypoint()->CameraLookAt);
 		// start doing AI magic stuff
 		TurnManager->CurrentTurn = ECurrentTurn::Enemy;
-		TurnManager->TurnsLeft = 3;
 		TurnManager->InitEnemy();
 
 
 	}
+
+
 }
-
-
-EDamageTypes ABaseRPGCharacter::GetRandomTypeOfDamage()
-{
-	return (EDamageTypes)UKismetMathLibrary::RandomInteger(5);
-}
-
-
-
-
 
 void ABaseRPGCharacter::DealDamage(FDealingDamage ReceivedDamage, class ABaseRPGCharacter* Damager, bool bIsReturnedOnce /*= false*/)
 {
+	UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), Damager->CurrentAbility->MagicAbility.VFX, GetActorLocation());
 
-	
+
+	bool bHasNullify = Statuses.CheckNullify(ReceivedDamage.DamageType);
+	if (bHasNullify) return;
 
 	bool bHasCritical = Statuses.CheckCritical(ReceivedDamage.DamageType);
 	bool bHasWeak = Statuses.CheckWeak(ReceivedDamage.DamageType);
-	bool bHasNullify = Statuses.CheckNullify(ReceivedDamage.DamageType);
 	bool bHasReturn = Statuses.CheckReturn(ReceivedDamage.DamageType);
+
 
 	if (bHasCritical) ReceivedDamage.DamageAmmount *= 2;
 	if (bHasWeak) ReceivedDamage.DamageAmmount *= 0.5;
-	if (bHasNullify) return;
 	if (bHasReturn && !bIsReturnedOnce)
 	{
 		if (Damager)
 		{
 			Damager->DealDamage(ReceivedDamage, Damager, true);
 		}
+		return;
+
 	}
 	Statuses.Health -= ReceivedDamage.DamageAmmount;
+	ACombatCamera* Pawn = Cast<ACombatCamera>(GetWorld()->GetFirstPlayerController()->GetPawn());
+
 	if (Statuses.Health > 0)
 	{
-		if (DamagedAnim) PlayAnimMontage(DamagedAnim);
+		if (DamagedAnim)
+		{ 
+			PlayAnimMontage(DamagedAnim);
+		}
 	}
 	else
 	{
-		
+		GetMesh()->SetCollisionObjectType(ECollisionChannel::ECC_PhysicsBody);
 		GetMesh()->SetSimulatePhysics(true);
 		FTimerHandle TimerHandle;
-		GetWorld()->GetTimerManager().SetTimer(TimerHandle, FTimerDelegate::CreateLambda([&] { Destroy(); }), 1.5f, false);
 
+
+		Pawn->ListOfIgnoredActors.Add(this);
 	}
+
+	// detect at the end so it always updates the player and enemy pointers 
+	if (Pawn)
+	{
+		Pawn->UpdatePlayersAndEnemies(false);
+	}
+
 	UE_LOG(LogTemp, Warning, TEXT("Damage ammount: %f of damage type: %s"), ReceivedDamage.DamageAmmount, *UEnum::GetDisplayValueAsText(ReceivedDamage.DamageType).ToString());
 	UE_LOG(LogTemp, Warning, TEXT("Critical: %d \nWeak: %d \nNullify:%d \nReturn: %d\n "), bHasCritical, bHasWeak, bHasNullify, bHasReturn);
 
@@ -155,7 +192,6 @@ void ABaseRPGCharacter::ExecuteAttack(class ABaseRPGCharacter* Damaged, class AT
 {
 	float Anim = PlayAnimMontage(CurrentAbility->MagicAbility.AnimationMontage);
 	UE_LOG(LogTemp, Warning, TEXT("%f"), Anim);
-
 
 	FTimerHandle TimerHandle;
 	FTimerDelegate TimerDel = FTimerDelegate::CreateUObject(this, &ABaseRPGCharacter::AfterDealDamageDelay, TurnManager);

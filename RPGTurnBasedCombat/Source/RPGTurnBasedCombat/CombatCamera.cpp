@@ -29,45 +29,9 @@ ACombatCamera::ACombatCamera()
 void ACombatCamera::BeginPlay()
 {
 	Super::BeginPlay();
+	UpdatePlayersAndEnemies();
 	
 	TArray<AActor*> FoundActors;
-	// use sorted map to skip manually sorting
-	TSortedMap<uint8,ABaseRPGCharacter*> SortedCharacters;
-
-	// get all characters
-	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABaseRPGCharacter::StaticClass(), FoundActors);
-	
-	
-	for (int Iterator{}; Iterator < FoundActors.Num(); ++Iterator)
-	{
-		auto player = Cast<ABaseRPGCharacter>(FoundActors[Iterator]);
-		// remove actors from array if not playable character
-		if (!player->GetIsPlayer())
-		{
-
-			EnemyActors.Add(player);
-			FoundActors.RemoveAt(Iterator);
-			--Iterator;
-		}
-	}
-	for (auto& actors : FoundActors)
-	{
-		ABaseRPGCharacter* CastedActor = Cast<ABaseRPGCharacter>(actors);
-		SortedCharacters.Add(CastedActor->PlayerPriority, CastedActor);
-
-	}
-	// put sorted characters into TArray
-	for (const auto& Pair : SortedCharacters)
-	{
-		PlayerActors.Add(Pair.Value);
-	}
-	if (!PlayerActors.IsEmpty())
-	{
-		SpringArm->SetWorldLocation(PlayerActors[0]->GetWorldCombatCameraPosition());
-		RotateCameraToNextEnemy(false);
-		CurrentPlayer = PlayerActors[0];
-	}
-
 	// Get camera positions
 	FoundActors.Empty();
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ACameraWayPoint::StaticClass(), FoundActors);
@@ -97,6 +61,13 @@ void ACombatCamera::Tick(float DeltaTime)
 	CameraTranslationCurveFTimeline.TickTimeline(DeltaTime);
 	CameraRotationCurveFTimeline.TickTimeline(DeltaTime);
 
+	
+	FHitResult out;
+	if (ensure(CurrentEnemy))
+	{
+		UKismetSystemLibrary::LineTraceSingle(GetWorld(), CurrentEnemy->GetActorLocation(), CurrentEnemy->GetActorLocation() + CurrentEnemy->GetActorUpVector() * 200, ETraceTypeQuery::TraceTypeQuery1, false, TArray<AActor*>(), EDrawDebugTrace::ForOneFrame, out, false);
+	}
+
 }
 
 // Called to bind functionality to input
@@ -110,9 +81,12 @@ void ACombatCamera::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 void ACombatCamera::MoveToNextCamera()
 {
 	if (!PlayerActors.IsEmpty()) {
+		UpdatePlayersAndEnemies(false);
 
 		if (TimelineCurve)
 		{
+			CurrentCameraPosition = (CurrentCameraPosition + 1) % PlayerActors.Num();
+
 			CameraTranslationCurveFTimeline.Stop();
 
 			FOnTimelineFloat TimelineProgress{};
@@ -133,7 +107,6 @@ void ACombatCamera::MoveToNextCamera()
 			MoveCameraToWidget();
 			CameraTranslationCurveFTimeline.PlayFromStart();
 
-			CurrentCameraPosition = (CurrentCameraPosition + 1) % PlayerActors.Num();
 		}
 
 	}
@@ -151,7 +124,7 @@ void ACombatCamera::RotateCameraToNextEnemy(bool bIsInverted /*= false*/)
 				? (CurrentCameraRotation - 1 + EnemyActors.Num()) % EnemyActors.Num()
 				: (CurrentCameraRotation + 1) % EnemyActors.Num();
 			CurrentEnemy = EnemyActors[CurrentCameraRotation];
-			RotateCamera(EnemyActors[CurrentCameraRotation]->GetActorLocation());
+			RotateCameraToCurrentEnemy();
 			
 			UE_LOG(LogTemp, Log, TEXT("Current cam rot: %d"), CurrentCameraRotation);
 		}
@@ -178,6 +151,7 @@ void ACombatCamera::MoveCameraToLocationWithRotation(const FVector& NewLocation,
 		WidgetRotation = NewRotation;
 
 		CameraTranslationCurveFTimeline.PlayFromStart();
+		
 
 	}
 
@@ -187,10 +161,84 @@ void ACombatCamera::MoveCameraToWidget()
 {
 	FVector EndLocation = GetCurrentPlayer()->FirstCombatWidget->GetComponentLocation() + (GetCurrentPlayer()->FirstCombatWidget->GetForwardVector() * 200.f);
 	FHitResult hit;
-	UKismetSystemLibrary::LineTraceSingle(GetWorld(), GetCurrentPlayer()->FirstCombatWidget->GetComponentLocation(), EndLocation, ETraceTypeQuery::TraceTypeQuery1, false, TArray<AActor*>(), EDrawDebugTrace::ForDuration, hit, false);
+	UKismetSystemLibrary::LineTraceSingle(GetWorld(), GetCurrentPlayer()->FirstCombatWidget->GetComponentLocation(), EndLocation, ETraceTypeQuery::TraceTypeQuery1, false, TArray<AActor*>(), EDrawDebugTrace::None, hit, false);
 	MoveCameraToLocationWithRotation(EndLocation, GetCurrentPlayer()->FirstCombatWidget->GetComponentLocation());
 }
 
+
+void ACombatCamera::RotateCameraToCurrentEnemy()
+{
+	if (!EnemyActors.IsEmpty())
+	{
+		if (TimelineCurve)
+		{
+			CameraRotationCurveFTimeline.Stop();
+			RotateCamera(EnemyActors[CurrentCameraRotation]->GetActorLocation());
+
+			UE_LOG(LogTemp, Log, TEXT("Current cam rot: %d"), CurrentCameraRotation);
+		}
+	}
+}
+
+void ACombatCamera::UpdatePlayersAndEnemies(bool bShouldRotate /*= true*/)
+{
+	PlayerActors.Empty();
+	EnemyActors.Empty();
+
+	TArray<AActor*> FoundActors;
+	// use sorted map to skip manually sorting
+	TSortedMap<uint8, ABaseRPGCharacter*> SortedCharacters;
+
+	// get all characters
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABaseRPGCharacter::StaticClass(), FoundActors);
+
+
+	for (int Iterator{}; Iterator < FoundActors.Num(); ++Iterator)
+	{
+
+		// remove actors from array if not playable character
+		if (auto player = Cast<ABaseRPGCharacterEnemy>(FoundActors[Iterator]))
+		{
+
+			EnemyActors.Add(player);
+			FoundActors.RemoveAt(Iterator);
+			--Iterator;
+		}
+	}
+	for (auto& actors : FoundActors)
+	{
+		ABaseRPGCharacter* CastedActor = Cast<ABaseRPGCharacter>(actors);
+		CastedActor->ShowAbilitiesWidget(false);
+		SortedCharacters.Add(CastedActor->PlayerPriority, CastedActor);
+
+	}
+	// put sorted characters into TArray
+	for (const auto& Pair : SortedCharacters)
+	{
+		PlayerActors.Add(Pair.Value);
+	}
+	if (!PlayerActors.IsEmpty() && bShouldRotate)
+	{
+		SpringArm->SetWorldLocation(PlayerActors[0]->GetWorldCombatCameraPosition());
+		RotateCameraToNextEnemy(false);
+		CurrentPlayer = PlayerActors[0];
+	}
+}
+
+void ACombatCamera::CheckGameEnded()
+{
+	if (PlayerActors.IsEmpty())
+	{
+		EndGame.bPlayerWon = false;
+		EndGame.bGameEnded = true;
+
+	}
+	if (EnemyActors.IsEmpty())
+	{
+		EndGame.bPlayerWon = true;
+		EndGame.bGameEnded = true;
+	}
+}
 
 void ACombatCamera::RotateCamera(const FVector& NewRotation, bool bRotatesToWidget /*= false*/)
 {
@@ -221,16 +269,19 @@ void ACombatCamera::RotateCamera(const FVector& NewRotation, bool bRotatesToWidg
 
 void ACombatCamera::NextEnemy()
 {
-	CurrentEnemyIndex = (CurrentEnemyIndex + 1) % EnemyActors.Num();
-	CurrentEnemy = EnemyActors[CurrentEnemyIndex];
-	if (ABaseRPGCharacterEnemy* Enemy = Cast<ABaseRPGCharacterEnemy>(CurrentEnemy))
+	if (!EnemyActors.IsEmpty())
 	{
-		Enemy->GetAllAlivePlayers(PlayerActors);
+		CurrentEnemyIndex = (CurrentEnemyIndex + 1) % EnemyActors.Num();
+		CurrentEnemy = EnemyActors[CurrentEnemyIndex];
+		if (ABaseRPGCharacterEnemy* Enemy = Cast<ABaseRPGCharacterEnemy>(CurrentEnemy))
+		{
+			Enemy->GetAllAlivePlayers(PlayerActors);
+		}
 	}
-
+	
+	
+	
 }
-
-
 
 void ACombatCamera::CameraTranslationTimelineValue(float val)
 {

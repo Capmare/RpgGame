@@ -14,6 +14,7 @@
 #include "CameraWayPoint.h"
 #include "TurnManager.h"
 #include "Kismet/GameplayStatics.h"
+#include "BaseRPGCharacterEnemy.h"
 
 void ACombatCameraController::BeginPlay()
 {
@@ -47,12 +48,28 @@ void ACombatCameraController::SetupInputComponent()
 		EnhancedInputComponent->BindAction(SelectAttackAction, ETriggerEvent::Started, this, &ACombatCameraController::SelectAttack);
 		EnhancedInputComponent->BindAction(ConfirmEnemyAction, ETriggerEvent::Started, this, &ACombatCameraController::ConfirmEnemy);
 
+		EnhancedInputComponent->BindAction(OpenWeaknessInfo, ETriggerEvent::Started, this, &ACombatCameraController::OpenWeaknessInfoTab);
+		EnhancedInputComponent->BindAction(OpenWeaknessInfo, ETriggerEvent::Completed, this, &ACombatCameraController::CloseWeaknessInfoTab);
+
 	}
 
 }
 
+
+
 void ACombatCameraController::NextCharacter()
 {
+	if (!TurnManager->GetCombatCamera()->ListOfIgnoredActors.IsEmpty())
+	{
+		for (ABaseRPGCharacter* actor : TurnManager->GetCombatCamera()->ListOfIgnoredActors)
+		{
+			actor->Destroy();
+		}
+		TurnManager->GetCombatCamera()->ListOfIgnoredActors.Empty();
+		TurnManager->GetCombatCamera()->UpdatePlayersAndEnemies(false);
+
+	}
+
 	if (TurnManager->CurrentTurnState == ETurnState::TargetSelection)
 	{
 		if (auto cameraInterface = Cast<ICameraActions>(Pawn))
@@ -66,6 +83,17 @@ void ACombatCameraController::NextCharacter()
 
 void ACombatCameraController::PreviousCharacter()
 {
+	if (!TurnManager->GetCombatCamera()->ListOfIgnoredActors.IsEmpty())
+	{
+		for (ABaseRPGCharacter* actor : TurnManager->GetCombatCamera()->ListOfIgnoredActors)
+		{
+			actor->Destroy();
+		}
+		TurnManager->GetCombatCamera()->ListOfIgnoredActors.Empty();
+		TurnManager->GetCombatCamera()->UpdatePlayersAndEnemies(false);
+
+	}
+
 	if (TurnManager->CurrentTurnState == ETurnState::TargetSelection)
 	{
 		if (auto cameraInterface = Cast<ICameraActions>(Pawn))
@@ -157,12 +185,46 @@ void ACombatCameraController::ConfirmEnemy()
 				FTimerHandle handle;
 				FTimerDelegate TimerDel = FTimerDelegate::CreateUObject(CombatCamera->GetCurrentPlayer(), &ABaseRPGCharacter::ExecuteAttack, CombatCamera->GetCurrentEnemy(),TurnManager);
 				GetWorldTimerManager().SetTimer(handle, TimerDel, 2.f, false);
-				
+						
 			}
 		}
 	}
 	
 	
 	
+}
+
+void ACombatCameraController::OpenWeaknessInfoTab()
+{
+	if (TurnManager->CurrentTurnState == ETurnState::TargetSelection)
+	{
+		if (ACombatCamera* CombatCamera = Cast<ACombatCamera>(Pawn))
+		{
+			if (ABaseRPGCharacterEnemy* Enemy =Cast<ABaseRPGCharacterEnemy>(CombatCamera->GetCurrentEnemy()))
+			{
+				Enemy->UpdateWeaknesses();
+				Enemy->ShowInfoWidget(true);
+			}
+		}
+	}
+}
+
+void ACombatCameraController::CloseWeaknessInfoTab()
+{
+	if (TurnManager->CurrentTurnState == ETurnState::TargetSelection)
+	{
+		if (ACombatCamera* CombatCamera = Cast<ACombatCamera>(Pawn))
+		{
+			for (auto enemy : CombatCamera->GetEnemyActors())
+			{
+				if (ABaseRPGCharacterEnemy* Enemy = Cast<ABaseRPGCharacterEnemy>(enemy))
+				{
+					Enemy->UpdateWeaknesses();
+					Enemy->ShowInfoWidget(false);
+				}
+			}
+			
+		}
+	}
 }
 
